@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="@dimen/m43">
+
+        <FrameLayout
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/m10"
+            android:background="@color/grey"
+            android:layout_width="@dimen/m302"
+            android:layout_height="@dimen/m29">
+
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/m10"
+                android:src="@mipmap/search_search_bar"
+                android:layout_width="@dimen/m12"
+                android:layout_height="@dimen/m12"/>
+
+            <EditText
+                android:id="@+id/et_search"
+                android:background="@null"
+                android:singleLine="true"
+                android:hint="搜索"
+                android:imeOptions="actionSearch"
+                android:textColor="@color/black"
+                android:textSize="@dimen/m13"
+                android:layout_marginLeft="@dimen/m26"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </FrameLayout>
+
+        <TextView
+            android:onClick="back"
+            android:text="取消"
+            android:paddingRight="@dimen/m10"
+            android:layout_gravity="center_vertical|right"
+            android:textColor="@color/bg1"
+            android:textSize="@dimen/m14"
+            android:gravity="center_vertical|right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/m0.5"
+        android:background="@color/hint" />
+
+    <FrameLayout
+        android:id="@+id/fl_history"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/m45"
+        android:background="@color/white">
+
+        <TextView
+            android:text="历史搜索"
+            android:layout_marginLeft="@dimen/m14"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/m13"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:onClick="clearHistory"
+            android:padding="@dimen/m10"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="@dimen/m6"
+            android:src="@mipmap/clear_history"
+            android:layout_width="@dimen/m31"
+            android:layout_height="@dimen/m35"/>
+
+    </FrameLayout>
+<View
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/m0.5"
+    android:background="@color/hint"></View>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_list_history"
+        android:paddingLeft="@dimen/m4"
+        android:minHeight="@dimen/m50"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/m0.5"
+        android:background="@color/hint" />
+
+    <FrameLayout
+        android:id="@+id/fl_res"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/m45"
+        android:background="@color/white">
+
+        <TextView
+            android:text="搜索结果"
+            android:layout_marginLeft="@dimen/m14"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/m13"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </FrameLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/m0.5"
+        android:background="@color/hint"></View>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_list_result"
+        android:paddingLeft="@dimen/m4"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

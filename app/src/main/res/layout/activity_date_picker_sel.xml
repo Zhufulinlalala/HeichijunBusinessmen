@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_gravity="center"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:layout_width="@dimen/m270"
+        android:layout_height="@dimen/m42"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_one"
+            android:layout_width="@dimen/m60"
+            android:layout_height="@dimen/m30"
+            android:gravity="center"
+            android:text="单日"
+            android:layout_marginLeft="@dimen/m70"
+            android:textColor="@color/white"
+            android:background="@drawable/date_bg"/>
+
+        <TextView
+            android:id="@+id/tv_more"
+            android:layout_width="@dimen/m60"
+            android:layout_height="@dimen/m30"
+            android:gravity="center"
+            android:text="多日"
+            android:textColor="@color/white"
+            android:background="@drawable/date_bg4"/>
+        <TextView
+            android:id="@+id/tv_diss"
+            android:layout_width="@dimen/m50"
+            android:layout_height="match_parent"
+            android:text="X"
+            android:textSize="@dimen/m17"
+            android:layout_marginLeft="@dimen/m30"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <DatePicker
+        android:background="@color/white"
+        android:layout_gravity="center"
+        android:id="@+id/cv_date"
+            android:layout_width="@dimen/m270"
+        android:layout_height="wrap_content"></DatePicker>
+<LinearLayout
+    android:layout_gravity="center"
+    android:background="@color/white"
+    android:paddingBottom="@dimen/m15"
+    android:layout_width="@dimen/m270"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+    <TextView
+        android:visibility="invisible"
+        android:layout_marginLeft="@dimen/m15"
+        android:id="@+id/tv_start"
+        android:layout_width="@dimen/m70"
+        android:layout_height="@dimen/m30"
+        android:background="@drawable/date_show"
+        android:gravity="center"
+        android:textSize="@dimen/m13"/>
+    <View
+        android:visibility="invisible"
+        android:id="@+id/v_h"
+        android:layout_width="@dimen/m10"
+        android:layout_marginLeft="@dimen/m7"
+        android:layout_marginRight="@dimen/m7"
+        android:layout_height="@dimen/m1"
+        android:background="@color/stroke"/>
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/tv_end"
+        android:layout_width="@dimen/m70"
+        android:layout_height="@dimen/m30"
+        android:layout_marginRight="@dimen/m18"
+        android:background="@drawable/date_show"
+        android:gravity="center"
+        android:textSize="@dimen/m13"/>
+    <TextView
+        android:id="@+id/tv_summit"
+        android:layout_width="@dimen/m60"
+        android:layout_height="@dimen/m30"
+        android:background="@color/date"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="@color/white" />
+</LinearLayout>
+
+</LinearLayout>

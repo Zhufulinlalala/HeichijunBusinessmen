@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical" >
+
+    <LinearLayout
+        android:background="@drawable/popup_item_white"
+        android:layout_marginLeft="@dimen/m57"
+        android:layout_marginRight="@dimen/m57"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginTop="@dimen/m21"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="提示"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/m17"
+            android:textColor="@color/black"
+            android:id="@+id/tv_title" />
+
+        <TextView
+            android:textSize="@dimen/m17"
+            android:textColor="@color/bg2"
+            android:id="@+id/tv_text"
+            android:layout_marginTop="@dimen/m17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="是否确认退款"
+            android:gravity="center_horizontal"
+            style="@style/mTextView" />
+
+        <View
+            android:layout_marginTop="@dimen/m21"
+            android:background="@color/hint"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/m0.5" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_contact_us_cancel"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textSize="@dimen/m14"
+                android:layout_width="0dp"
+                android:textColor="@color/iphoneBlue"
+                android:layout_height="@dimen/m50"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="取消"/>
+
+            <View
+                android:background="@color/hint"
+                android:layout_width="@dimen/m0.5"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:id="@+id/btn_contact_us_confirm"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textSize="@dimen/m14"
+                android:background="?android:attr/selectableItemBackground"
+                android:textColor="@color/iphoneBlue"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/m50"
+                android:text="确认"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

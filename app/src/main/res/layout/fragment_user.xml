@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/grey"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/m45"
+        android:background="@color/bg">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="个人中心"
+            android:textColor="@color/white"
+            android:textSize="@dimen/m18"/>
+
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/m0.5"
+        android:background="@color/hint" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/m10"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/FL1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/m50"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/m15"
+                android:gravity="center_vertical"
+                android:text="账号"
+                android:textColor="@color/bg2"
+                android:textSize="@dimen/m17"/>
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginLeft="@dimen/m50"
+                android:layout_marginRight="@dimen/m15"
+                android:gravity="center_vertical"
+                android:textColor="@color/bg2"
+                android:textSize="@dimen/m17"/>
+
+        </FrameLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/m0.5"
+            android:background="@color/hint"/>
+
+        <FrameLayout
+            android:id="@+id/FL2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/m50"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/m15"
+                android:gravity="center_vertical"
+                android:text="姓名"
+                android:textColor="@color/bg2"
+                android:textSize="@dimen/m17"/>
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginLeft="@dimen/m50"
+                android:layout_marginRight="@dimen/m15"
+                android:gravity="center_vertical"
+                android:textColor="@color/bg2"
+                android:textSize="@dimen/m17"/>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LL3"
+        android:layout_marginTop="@dimen/m10"
+        android:visibility="gone"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/m50" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/m15"
+                android:gravity="center_vertical"
+                android:text="查看定位"
+                android:textColor="@color/bg2"
+                android:textSize="@dimen/m17"/>
+
+            <ImageView
+                android:layout_width="@dimen/m15"
+                android:layout_height="@dimen/m15"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="@dimen/m10"
+                android:src="@mipmap/ic_launcher_sx"/>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/m0.5"
+        android:background="@color/hint"/>
+
+    <LinearLayout
+        android:id="@+id/LL4"
+        android:visibility="gone"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/m50" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/m15"
+                android:gravity="center_vertical"
+                android:text="管理统计"
+                android:textColor="@color/bg2"
+                android:textSize="@dimen/m17"/>
+
+            <ImageView
+                android:layout_width="@dimen/m15"
+                android:layout_height="@dimen/m15"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="@dimen/m10"
+                android:src="@mipmap/ic_launcher_sx"/>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/m10"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/FL5"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/m50" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/m15"
+                android:gravity="center_vertical"
+                android:text="设置"
+                android:textColor="@color/bg2"
+                android:textSize="@dimen/m17"/>
+
+            <ImageView
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="@dimen/m10"
+                android:layout_width="@dimen/m15"
+                android:layout_height="@dimen/m15"
+                android:src="@mipmap/ic_launcher_sx"/>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

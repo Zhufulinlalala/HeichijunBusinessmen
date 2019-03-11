@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <View
+        android:visibility="gone"
+        android:id="@+id/v_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/m2"
+        android:background="@color/black"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/m37"
+    android:orientation="horizontal">
+    <TextView
+        android:background="#b5b5b5"
+        android:id="@+id/tv_good_no"
+        android:layout_width="0dp"
+        android:layout_weight="5"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="奶茶"
+        android:textColor="@color/black"/>
+    <View
+        android:layout_width="@dimen/m2"
+        android:layout_height="match_parent"
+        android:background="@color/black"/>
+    <TextView
+        android:background="#b5b5b5"
+        android:id="@+id/tv_good_num"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="20"
+        android:textColor="@color/black"/>
+    <View
+        android:layout_width="@dimen/m2"
+        android:layout_height="match_parent"
+        android:background="@color/black"/>
+    <TextView
+        android:background="#b5b5b5"
+        android:id="@+id/tv_good_money"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="20"
+        android:textColor="@color/black"/>
+</LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/m2"
+        android:background="@color/black"/>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rc_list2"></android.support.v7.widget.RecyclerView>
+</LinearLayout>

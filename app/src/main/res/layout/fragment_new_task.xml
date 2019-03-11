@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/grey"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/m45"
+        android:background="@color/bg">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="新任务"
+            android:textColor="@color/white"
+            android:textSize="@dimen/m18"/>
+
+        <ImageView
+            android:id="@+id/ic_scan"
+            android:layout_marginRight="@dimen/m2"
+            android:layout_width="@dimen/m45"
+            android:layout_height="@dimen/m45"
+            android:padding="@dimen/m13"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:src="@mipmap/ic_launcher_sx" />
+
+    </FrameLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </android.support.v7.widget.RecyclerView>
+
+            <ImageView
+                android:id="@+id/iv_no_record"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/m100"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_launcher_sx"
+                android:layout_width="@dimen/m160"
+                android:layout_height="@dimen/m160"/>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</LinearLayout>

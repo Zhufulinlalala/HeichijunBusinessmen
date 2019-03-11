@@ -1,0 +1,55 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="mTextView" >
+        <item name="android:textColor">@color/bg2</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="FullScreen" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="Splash" parent="FullScreen">
+        <!-- Customize your theme here. -->
+        <item name="android:background">@mipmap/ic_launcher_hz</item>
+    </style>
+
+    <style name="CustomTabTextAppearanceStyle" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">@dimen/m15</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="LandLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/m0.5</item>
+        <item name="android:background">@color/gray</item>
+    </style>
+
+    <style name="PhotoPickerTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <!--显示有问题的话就全改成dp-->
+    <style name="SwitchButtonStyle">
+        <item name="android:paddingLeft">@dimen/m10</item>
+        <item name="android:paddingRight">@dimen/m10</item>
+        <item name="android:paddingTop">@dimen/m4</item>
+        <item name="android:paddingBottom">@dimen/m4</item>
+    </style>
+
+</resources>

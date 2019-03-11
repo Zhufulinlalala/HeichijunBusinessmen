@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hk.lang_data_manager"
+    android:versionCode="311"
+    android:versionName="3.1.1">
+
+    <!-- Optional. Required for location feature -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <!-- Required -->
+    <permission
+        android:name="com.hk.lang_data_manager.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <!-- Required -->
+    <uses-permission android:name="com.hk.lang_data_manager.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- 连接网络权限，用于执行云端语音能力 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- 读取网络信息状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 获取当前wifi状态 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 允许程序改变网络连接状态 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <!-- 读取手机信息权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 读取联系人权限，上传联系人需要用到此权限 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- 外存储写权限，构建语法需要用到此权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 外存储读权限，构建语法需要用到此权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 配置权限，用来记录应用配置信息 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 手机定位信息，用来为语义等功能提供定位，提供更精准的服务 -->
+    <!-- 定位信息是敏感信息，可通过Setting.setLocationEnable(false)关闭定位请求 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 如需使用人脸识别，还要添加：摄相头权限，拍照需要用到 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        android:name=".base.SaflyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <!--阿里热更新-->
+        <meta-data
+            android:name="com.taobao.android.hotfix.IDSECRET"
+            android:value="24947154-1" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.APPSECRET"
+            android:value="9264ec7680ed0a43f1d8575c6aa4a248" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.RSASECRET"
+            android:value="MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCl7kk9vMelBNcTtR8bLG4QyDIohKejaTljCwQBAG2nVBh5Na2hRtZIIyqAWzMeaySc0wRfUSEqH1/tokV6GZJWRT++wWN4u21k5Y41hhSFaGOHrFsqRjESHk7ByXcUepk2TCINZZgy5Mg0EKgpwmay8c9g37w1JcB7MydidomWBuu/OtmeYFBjxdIeUQhnbaEW6sL5CPnYF7Ngkt1ryc1qqolg6r4vxYEQ7I5svS7G0HBggN4HHHYbjCMFyoVBf2q2MqWZ+AFgmuk1qWYHerwUII6w9UYarua9dbJ+HApkXlqpn/2DKcceUtjXq/Z+jonswDuHsSyYWI0f8CFojedfAgMBAAECggEAUidom+ib8Fg1JMzIWevlkumL7APB/GZcw2zwzo4nvHEmrNym2vL3pT/EC0kcRjNGLV9NCuRgRzrBhCaTv6Bpk801gny9g0lJIGuHvXhlMKg+ny329TdLlGztEYVuL/WDZh7LvVZPxOMBPMYCfKqDrpWK16vuw2Gtq1HobhfCh0SY+GFY7uAak/BYMgm5wizPypeAk8i7fAMaPOxsTXZLIZ1hmOiK5GCk3gQPDrSbxqzj8Ur9y62/KWxuf8N2GPeVms7y2MNqMOLyyu+8GBb1lWHf4U/aBsoJqX446cHznIRCQVunxrWeIarRBMZvq/Cvi5P0O8BlHS6pKNvynwcEAQKBgQDiUjqjNepPCW9YQUqjdGzsQdIDsqd+846o3Ebfrga0kHetUIk5p4XDljhgkO44QGGgaJimG5RCoR7Eg4Gmvv69USI/vCPUqNQOBb3XnaMvixO+p9elFzi5NT4g6x7BGslpsZD7L2dIinTQyVk/rLh3YscvzZcmVPuRYF84yYXtJwKBgQC7sLTXWmC5Pfm5t+W7tBZG00WZEEebrQEKAvthxA2iAUN/O7mZIejRr+dTlJWSFMFI6edXjUV29MgRaSYb4xbHgY6F3mkbIzkxrF2df+ib1p/VD02iWYUyLMMpv3a+MOeB1wCL5ve5+cry+nIcaxR3jfwTrpP1XffyeVchNo+HCQKBgDa9IreU8734DzkuWYodP7cI2G3SiRZ4fBm1ZWL2aWLEyl1d7ELIlN7Qd4RLqYJrd/FfOwR6CSrwY0uubu5QpbZOaFU4AQaPavKVSuxakTyPi9ACMnMYobyR9xvpIkAcZXit3N4UAgwWiNhyyqZO9TLS7lBOjm9UAKCRyZYnj7/jAoGAOXVEN3U8jRkS/S72Dnt4ImCFOvGH6nmRCt6U1H4vajwWzLmc/Osrmh3OpIClNV5TOZ4Zq2zdKiiPovzcpMblb1gTKJpI9PzYgoNw+UlyDVsr/Q69Rok/RHf9myc5E8pm5RHL4ghoKC/3WGEhU9/YGS2HUQMt2nzU7g8FhG5ui/kCgYAFkmg+bfzUjaLYLtyOs63LLlAMH0c2D4yj/mLtZjmwHUVsA/uVGdjdj/tNuQGEJtR/8ya0zT/T1Vz/joANzSJp40HOvALzBy+PcU/s5GRBanpDj7yD/J87G3CW+3Mz/f+EY108VJdS6U+tijZCJG5OANc/O8wyxG6GUyxp0ZgV4w==" />
+
+
+        <activity android:name=".activity.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.TestActivity"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="jpush.testAction" />
+
+                <category android:name="jpush.testCategory" />
+            </intent-filter>
+        </activity>
+
+        <!-- Rich push 核心功能 since 2.0.6 -->
+        <activity
+            android:name="cn.jpush.android.ui.PopWinActivity"
+            android:exported="false"
+            android:theme="@style/MyDialogStyle" />
+
+        <!-- Required SDK 核心功能 -->
+        <!-- 可配置android:process参数将PushService放在其他进程中 -->
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER" />
+                <action android:name="cn.jpush.android.intent.REPORT" />
+                <action android:name="cn.jpush.android.intent.PushService" />
+                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+            </intent-filter>
+        </service>
+
+        <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
+        <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+
+                <category android:name="com.hk.lang_data_manager" />
+            </intent-filter>
+        </service>
+
+        <!-- Required SDK核心功能 -->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" /> <!-- Required  显示通知栏 -->
+                <category android:name="com.hk.lang_data_manager" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <!-- Optional -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <!-- since 3.0.9 Required SDK 核心功能 -->
+        <provider
+            android:name="cn.jpush.android.service.DataProvider"
+            android:authorities="com.hk.lang_data_manager.DataProvider"
+            android:exported="false" />
+
+        <!-- Required SDK核心功能 -->
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar">
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.hk.lang_data_manager" />
+            </intent-filter>
+        </activity>
+
+        <!-- Required SDK核心功能 -->
+        <service
+            android:name="cn.jpush.android.service.DownloadService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <!-- since 3.1.0 Required SDK 核心功能 -->
+        <provider
+            android:name="cn.jpush.android.service.DownloadProvider"
+            android:authorities="com.hk.lang_data_manager.DownloadProvider"
+            android:exported="true" />
+
+        <receiver
+            android:name=".MyReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <!-- Required ⽤用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <!-- Required ⽤用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <!-- Required ⽤用户打开⾃自定义通知栏的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <!-- 接收⽹网络变化 连接/断开 since 1.6.3 -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+
+                <category android:name="com.hk.lang_data_manager" />
+            </intent-filter>
+        </receiver>
+
+
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="developer-default" />
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="fcf2815781bafbf9095b72d2" />
+
+        <activity android:name=".fragment.OrderFragment" />
+        <activity android:name=".fragment.OrderFragment2" />
+        <activity
+            android:name="com.foamtrace.photopicker.PhotoPickerActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/PhotoPickerTheme" />
+        <activity
+            android:name="com.foamtrace.photopicker.PhotoPreviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/PhotoPickerTheme" />
+
+        <!-- 已经自带竖屏设置 -->
+
+        <meta-data
+            android:name="design_width"
+            android:value="1080" />
+        <meta-data
+            android:name="design_height"
+            android:value="1920" />
+        <!-- 兼容全面屏 -->
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1" />
+
+        <activity android:name=".MainActivity" />
+        <activity android:name=".MasterActivity" />
+        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.SearchActivity2" />
+        <!--<activity android:name=".activity.DatePickerSelActivity" />-->
+        <activity android:name=".activity.TongActivity"></activity>
+    </application>
+
+</manifest>

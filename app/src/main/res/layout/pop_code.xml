@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="@dimen/m228"
+        android:layout_height="@dimen/m141"
+        android:background="@drawable/pop_code_bg"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_marginTop="@dimen/m27"
+            android:layout_width="@dimen/m192"
+            android:layout_height="@dimen/m34"
+            android:background="@drawable/pop_code"
+            android:gravity="center">
+            <EditText
+                android:id="@+id/et_code"
+                android:layout_marginLeft="@dimen/m5"
+                android:layout_marginRight="@dimen/m5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="请输入授权密码"
+                android:background="@null"
+                android:textSize="@dimen/m13"
+                />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_btn_summit"
+            android:layout_marginTop="@dimen/m24"
+            android:layout_width="@dimen/m192"
+            android:layout_height="@dimen/m34"
+            android:textColor="@color/white"
+            android:text="确定"
+            android:gravity="center"
+            android:background="@drawable/btn_order"/>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_marginTop="@dimen/m29"
+        android:layout_width="@dimen/m38"
+        android:layout_height="@dimen/m38"
+        android:id="@+id/iv_close"
+        android:background="@mipmap/cancel"/>
+</LinearLayout>

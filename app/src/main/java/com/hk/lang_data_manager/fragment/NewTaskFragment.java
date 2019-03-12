@@ -62,7 +62,8 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 
-public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.SwipeListener{
+/*   首  页   面  */
+public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.SwipeListener {
     private List<Map<String, Object>> listItem = new ArrayList<>();
     private List<Map<String, Object>> listItem2 = new ArrayList<>();
     @BindView(R.id.il_lv)
@@ -75,19 +76,20 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
     private SwipeRefreshLayout mSwipeLayout;
     private boolean isRefresh = false;
     private MyReceiver receiver;
-    private int num=0;
-    private Handler handler=new Handler();
-    private Handler handler2=new Handler();
+    private int num = 0;
+    private Handler handler = new Handler();
+    private Handler handler2 = new Handler();
     private PopLingdang popLingdang;
     private PopPatchUpdate ppu;
     //每1分钟检查一下是否有未接单订单
-    private Runnable refreshLoad=new Runnable() {
+    private Runnable refreshLoad = new Runnable() {
         @Override
         public void run() {
             loadData2();
-            handler2.postDelayed(this,60000);}
+            handler2.postDelayed(this, 60000);
+        }
     };
-    public boolean refresh=false;
+    public boolean refresh = false;
 
     @Override
     protected int getLayoutId() {
@@ -104,36 +106,36 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
 //            loadData();
 //        }
 
-            listItem.clear();
-            initList();
-            page=1;
-            loadData();
+        listItem.clear();
+        initList();
+        page = 1;
+        loadData();
 
     }
-     public void onDestroy() {
+
+    public void onDestroy() {
         super.onDestroy();
 
         EventBus.getDefault().unregister(this);
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(String s) {
         //类名+方法/事件名
-        if (s.equals("sss"))
-        {
-            TimerTask task=new TimerTask() {
+        if (s.equals("sss")) {
+            TimerTask task = new TimerTask() {
                 @Override
                 public void run() {
-                    page=1;
+                    page = 1;
                     loadData();
                 }
             };
-            Timer timer=new Timer();
-            timer.schedule(task,500);
+            Timer timer = new Timer();
+            timer.schedule(task, 500);
         }
-        if (s.equals("New"))
-        {
+        if (s.equals("New")) {
             initList();
-            page=1;
+            page = 1;
             loadData();
         }
     }
@@ -152,25 +154,26 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = super.onCreateView(inflater, container, savedInstanceState);
-        SpeechUtility.createUtility(getActivity(), SpeechConstant.APPID +"=5a7e86c4");
+        SpeechUtility.createUtility(getActivity(), SpeechConstant.APPID + "=5a7e86c4");
         EventBus.getDefault().register(this);
         initList();
         loadData();
-        handler2.postDelayed(refreshLoad,60000);
-        mSwipeLayout =view.findViewById(R.id.id_swipe_ly);
+        handler2.postDelayed(refreshLoad, 60000);
+        mSwipeLayout = view.findViewById(R.id.id_swipe_ly);
         mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(!isRefresh){
+                if (!isRefresh) {
                     isRefresh = true;
                     new Handler().postDelayed(new Runnable() {
                         public void run() {
                             mSwipeLayout.setRefreshing(false);
-                            page=1;
+                            page = 1;
                             loadData();
-                            isRefresh= false;
+                            isRefresh = false;
                         }
-                    }, 2000); }
+                    }, 2000);
+                }
             }
         });
         return root;
@@ -179,21 +182,22 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
     @Override
     protected void setUpView() {
     }
+
     public void loadData() {
-        refresh=true;
+        refresh = true;
         next = false;
-        num=0;
+        num = 0;
         Map<String, String> parmsMap = new HashMap<>();
         parmsMap.put("adminId", MySharedPreference.getAdminId());
         parmsMap.put("token", MySharedPreference.getToken());
         parmsMap.put("cinemaId", MySharedPreference.getCinemaId());
         parmsMap.put("showDetail", "1");
         parmsMap.put("expNopay", "1");
-        parmsMap.put("status","1");
-        parmsMap.put("expComplete","1");
+        parmsMap.put("status", "1");
+        parmsMap.put("expComplete", "1");
         parmsMap.put("page", page + "");
-        parmsMap.put("rankType","1");
-        parmsMap.put("service_id","1");
+        parmsMap.put("rankType", "1");
+        parmsMap.put("service_id", "1");
         OkHttpManger.getInstance().getAsync(Constant.URL + "order/list", new OKHttpUICallback.ResultCallback<AppBack>() {
             @Override
             public void onSuccess(AppBack appBack) {
@@ -203,6 +207,11 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
                     if (page == 1) {
                         listItem.clear();
                     }
+//                    "dada_status" int(11) DEFAULT '0' COMMENT '达达状态 未呼叫达达:0待接单＝1 待取货＝2 配送中＝3 已完成＝4 已取消＝5 已过期＝7 指派单=8 妥投异常之物品返回中=9 妥投异常之物品返回完成=10',
+//                     "dada_cancel_reason" varchar(255) DEFAULT NULL COMMENT '达达取消原因',
+//                      "dada_cancel_from" int(11) DEFAULT '0' COMMENT '达达取消来源1:达达配送员取消；2:商家主动取消；3:系统或客服取消；0:默认值',
+//                      "dada_staff_id" varchar(32) DEFAULT NULL COMMENT '达达配送员员工',
+//                     "dada_staff_name" varchar(20) DEFAULT NULL COMMENT '达达配送员姓名',
                     listItem.addAll(list);
                     if (items.get("hasNextPage").equals(true))
                         hasNext = true;
@@ -216,39 +225,40 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
 
     }
 
+    /*每一分钟检查一遍 数据  加载数据*/
     public void loadData2() {
 //        handler.removeCallbacks(noticeRunnable);
-        num=0;
+        num = 0;
         Map<String, String> parmsMap = new HashMap<>();
         parmsMap.put("adminId", MySharedPreference.getAdminId());
         parmsMap.put("token", MySharedPreference.getToken());
         parmsMap.put("cinemaId", MySharedPreference.getCinemaId());
         parmsMap.put("showDetail", "1");
         parmsMap.put("expNopay", "1");
-        parmsMap.put("status","1");
-        parmsMap.put("expComplete","1");
-        parmsMap.put("rankType","1");
-        parmsMap.put("service_id","1");
+        parmsMap.put("status", "1");
+        parmsMap.put("expComplete", "1");
+        parmsMap.put("rankType", "1");
+        parmsMap.put("service_id", "1");
         OkHttpManger.getInstance().getAsync(Constant.URL + "order/list", new OKHttpUICallback.ResultCallback<AppBack>() {
             @Override
             public void onSuccess(AppBack appBack) {
                 if (appBack.isSuccess()) {
-                    List<Map<String, Object>> items2 =appBack.getList();
+                    List<Map<String, Object>> items2 = appBack.getList();
                     listItem2.clear();
                     listItem2.addAll(items2);
-                    for(int i=0;i<items2.size();i++){
-                        if(items2.get(i).get("cookStatus").equals(0)){
+                    for (int i = 0; i < items2.size(); i++) {
+                        if (items2.get(i).get("cookStatus").equals(0)) {
                             num++;
                         }
                     }
-                    if (num>0){
-                        Loge(num+"");
+                    if (num > 0) {
+                        Loge(num + "");
                         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                         if (notification == null) return;
                         Ringtone r = RingtoneManager.getRingtone(getContext(), notification);
-                        try{
-                        r.play();}
-                        catch (Exception e){
+                        try {
+                            r.play();
+                        } catch (Exception e) {
 
                         }
                         TextToVoice("您还有订单未接单，请及时处理！");
@@ -260,6 +270,7 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
             }
         }, parmsMap);
     }
+
     void initList() {
         myAdpter = new MyAdapter(getActivity(), listItem);
         final LinearLayoutManager LayoutManager = new LinearLayoutManager(getActivity());
@@ -296,7 +307,7 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
 
     public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> implements View.OnClickListener {
         private List<Map<String, Object>> data;
-        private List<Map<String, Object>> items=new ArrayList<>();
+        private List<Map<String, Object>> items = new ArrayList<>();
         private List<Map<String, Object>> giftsItem = new ArrayList<>();
         private LayoutInflater inflater;
         private Context context;
@@ -330,10 +341,10 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
             TextView tvAllMoney = (TextView) holder.getView(R.id.tv_all_money);
             TextView tvStatusDo = (TextView) holder.getView(R.id.tv_status_do);
             TextView tvStatus = (TextView) holder.getView(R.id.tv_status);
-            TextView tvSeat= (TextView) holder.getView(R.id.tv_seat);
+            TextView tvSeat = (TextView) holder.getView(R.id.tv_seat);
             ImageView ivStatusBottom = (ImageView) holder.getView(R.id.iv_status_bottom);
             TextView tvStatusRight = (TextView) holder.getView(R.id.tv_status_right);
-            LinearLayout llDetails= (LinearLayout) holder.getView(R.id.ll_details);
+            LinearLayout llDetails = (LinearLayout) holder.getView(R.id.ll_details);
             LinearLayout llbG = (LinearLayout) holder.getView(R.id.ll_bg);
             LinearLayout llSeat = (LinearLayout) holder.getView(R.id.ll_seat);
             LinearLayout llSerive = (LinearLayout) holder.getView(R.id.ll_serive);
@@ -344,25 +355,25 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
             TextView tvThing1 = (TextView) holder.getView(R.id.tv_thing1);
             TextView tvPhone = (TextView) holder.getView(R.id.tv_phone);
             TextView tvNote = (TextView) holder.getView(R.id.tv_note);
-            ImageView ivld= (ImageView) holder.getView(R.id.iv_lingdang);
+            ImageView ivld = (ImageView) holder.getView(R.id.iv_lingdang);
             final Map<String, Object> item = data.get(position);
-            if ((notNullString(item.get("isUrge")).equals("1") || notNullString(item.get("isUrge")).equals("2"))&&(Integer.parseInt(item.get("cookStatus").toString())!=-1&&Integer.parseInt(item.get("cookStatus").toString())!=-2)) {
-                tvStatusRight.setText("催单");
-                    ivStatusBottom.setVisibility(View.VISIBLE);
-                    tvStatusRight.setVisibility(View.VISIBLE);
-            }else{
+            if ((notNullString(item.get("isUrge")).equals("1") || notNullString(item.get("isUrge")).equals("2"))
+                    && (Integer.parseInt(item.get("cookStatus").toString()) != -1 && Integer.parseInt(item.get("cookStatus").toString()) != -2)) {//1次催单 \\ 2次催单 &&（ 不缺货&&不有误）
+                tvStatusRight.setText("催单");   //
+                ivStatusBottom.setVisibility(View.VISIBLE);
+                tvStatusRight.setVisibility(View.VISIBLE);
+            } else {
 
             }
-            if((item.get("cookStatus").equals(2)||item.get("status").equals(-1))&&Integer.parseInt(item.get("isUrge").toString())!=0){
+            if ((item.get("cookStatus").equals(2) || item.get("status").equals(-1)) && Integer.parseInt(item.get("isUrge").toString()) != 0) {  //已完成 \\ 已退款 && 催单
                 ivStatusBottom.setVisibility(View.GONE);
                 tvStatusRight.setVisibility(View.GONE);
-            }
-            else{
+            } else {
 
             }
-            tvGetNum.setText(item.get("takeCode").toString());
-            if (item.get("orderType").equals(2)) {
-                if (item.get("payType").equals(10)){
+            tvGetNum.setText(item.get("takeCode").toString());   //取货号
+            if (item.get("orderType").equals(2)) {  //  送餐到位       cookStatus  3运送中（order_type=2时有）待取货（order_type=1 废弃）
+                if (item.get("payType").equals(10)) {  //会员卡支付
                     tv_vip.setVisibility(View.VISIBLE);
                 }
                 tvAllMoney.setText(notNullString("实付: ￥" + item.get("totalPrice")));
@@ -385,10 +396,9 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
                 tvLocation.setText(notNullString(item.get("seat")));
                 tvStatusDo.setTextColor(Color.parseColor("#ffa100"));
                 if (item.get("status").equals(1)) {
-                    if(item.get("isChangeSeat").equals(1)){
+                    if (item.get("isChangeSeat").equals(1)) {
                         tvSeatChange.setVisibility(View.VISIBLE);
-                    }
-                    else{
+                    } else {
                         tvSeatChange.setVisibility(View.GONE);
                     }
                     if (item.get("cookStatus").equals(-3)) {
@@ -423,8 +433,7 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
                         ivStatusBottom.setVisibility(View.GONE);
                         tvStatusRight.setVisibility(View.GONE);
                         tvStatus.setBackgroundResource(R.color.green2);
-                        if (notNullString(item.get("isUrge")).equals("1"))
-                        {
+                        if (notNullString(item.get("isUrge")).equals("1")) {
                             ivStatusBottom.setVisibility(View.VISIBLE);
                             tvStatusRight.setVisibility(View.VISIBLE);
                         }
@@ -440,8 +449,7 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
                         ivStatusBottom.setVisibility(View.GONE);
                         tvStatusRight.setVisibility(View.GONE);
                         tvStatus.setBackgroundResource(R.color.green2);
-                        if (notNullString(item.get("isUrge")).equals("1"))
-                        {
+                        if (notNullString(item.get("isUrge")).equals("1")) {
                             ivStatusBottom.setVisibility(View.VISIBLE);
                             tvStatusRight.setVisibility(View.VISIBLE);
                         }
@@ -453,8 +461,9 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
                     ivStatusBottom.setVisibility(View.GONE);
                     tvStatusRight.setVisibility(View.GONE);
                 }
-            } else if(item.get("orderType").equals(1)){
-                if (item.get("payType").equals(10)){
+            }
+            else if (item.get("orderType").equals(1)) {  //自助取餐   3运送中（order_type=2时有）待取货（order_type=1 废弃）
+                if (item.get("payType").equals(10)) {
                     tv_vip.setVisibility(View.VISIBLE);
                 }
                 tvType.setText("取餐号：");
@@ -500,8 +509,7 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
                         tvStatus.setBackgroundResource(R.color.green2);
                         ivStatusBottom.setVisibility(View.GONE);
                         tvStatusRight.setVisibility(View.GONE);
-                        if (notNullString(item.get("isUrge")).equals("1"))
-                        {
+                        if (notNullString(item.get("isUrge")).equals("1")) {
                             ivStatusBottom.setVisibility(View.VISIBLE);
                             tvStatusRight.setVisibility(View.VISIBLE);
                         }
@@ -512,8 +520,7 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
                         tvStatus.setBackgroundResource(R.color.green2);
                         ivStatusBottom.setVisibility(View.GONE);
                         tvStatusRight.setVisibility(View.GONE);
-                    }
-                    else if (item.get("cookStatus").equals(3)) {
+                    } else if (item.get("cookStatus").equals(3)) {
                         ivStatus.setBackgroundResource(R.mipmap.btn4);
                         tvStatus.setText("已接单");
                         ivld.setVisibility(View.VISIBLE);
@@ -529,7 +536,112 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
                     tvStatusRight.setVisibility(View.GONE);
                 }
             }
-            else{
+            else if (item.get("orderType").equals(4)) {  //外卖模式
+                // "dada_status" int(11) DEFAULT '0' COMMENT '达达状态   未呼叫达达:0待接单＝1 待取货＝2 配送中＝3 已完成＝4 已取消＝5 已过期＝7 指派单=8 妥投异常之物品返回中=9 妥投异常之物品返回完成=10',
+//                 "dada_cancel_reason" varchar(255) DEFAULT NULL COMMENT '达达取消原因',
+//                "dada_cancel_from" int(11) DEFAULT '0' COMMENT '达达取消来源1:达达配送员取消；2:商家主动取消；3:系统或客服取消；0:默认值',
+//                "dada_staff_id" varchar(32) DEFAULT NULL COMMENT '达达配送员员工',
+//               "dada_staff_name" varchar(20) DEFAULT NULL COMMENT '达达配送员姓名',
+                if (item.get("payType").equals(10)) {
+                    tv_vip.setVisibility(View.VISIBLE);  //红色 （vip）
+                }
+                llSeat.setVisibility(View.GONE);         //座位号
+                tvType.setText("取餐号：");// 取餐号
+                tvAllMoney.setText(notNullString("实付: ￥" + item.get("totalPrice")));//   实付 ：
+                llSerive.setVisibility(View.GONE);//  联系 方式 备注 那 一块
+                lvDetail.setVisibility(View.VISIBLE);//  商品 recyclerview
+                rlZb.setVisibility(View.VISIBLE);//   商品 recyclerview
+                tvAllMoney.setVisibility(View.VISIBLE);//
+                llbG.setBackgroundResource(R.drawable.bg_lanse_top);//  顶部 背景   蓝色  绿色 黄色
+                tvSeat.setVisibility(View.GONE);//  座位号
+                tvStatusDo.setText("外卖");//
+                ivld.setVisibility(View.VISIBLE);//  座位号 旁边的小铃铛
+                llNote.setVisibility(View.VISIBLE);//  真实 备注信息
+                tvNote2.setText(notNullString(item.get("remark")));// 真实 备注信息 内容
+                tvStatusDo.setTextColor(Color.parseColor("#1692ed"));//  外卖 字体颜色
+                ivStatusBottom.setVisibility(View.GONE);
+                if (item.get("status").equals(1)) { //已付款
+                    if (item.get("isChangeSeat").equals(1)) {   //是否变更
+                        tvSeatChange.setVisibility(View.VISIBLE);
+                    } else {
+                        tvSeatChange.setVisibility(View.GONE);
+                    }
+                    if (item.get("cookStatus").equals(0)) {  //尚未接单
+                        ivStatus.setBackgroundResource(R.mipmap.btn3);
+                        tvStatus.setText("未接单");
+                        tvStatus.setBackgroundResource(R.color.gray3);
+                        tvStatusRight.setVisibility(View.GONE);
+                    }
+                    if (item.get("dadaStatus").equals("9")) {
+                        tvStatus.setText("异常");
+                        ivStatusBottom.setVisibility(View.GONE);
+                        tvStatus.setBackgroundResource(R.color.red);
+                        tvStatusRight.setVisibility(View.VISIBLE);
+                        ivStatus.setBackgroundResource(R.mipmap.fhsp);
+                        tvStatusRight.setText("! 妥投异常");
+                    } else if (item.get("dadaStatus").equals("10")) {
+                        tvStatus.setText("异常");
+                        ivStatusBottom.setVisibility(View.GONE);
+                        tvStatus.setBackgroundResource(R.color.red);
+                        tvStatusRight.setVisibility(View.VISIBLE);
+                        ivStatus.setBackgroundResource(R.mipmap.callqishou);
+                        tvStatusRight.setText("! 妥投异常");
+                    } else if (item.get("dadaStatus").equals("0")) {   //未呼叫达达:0
+                        ivStatus.setBackgroundResource(R.mipmap.callqishou);
+                        tvStatus.setText("已接单");
+                        tvStatus.setBackgroundResource(R.color.green2);
+                        tvStatusRight.setVisibility(View.GONE);
+                    } else if (item.get("dadaStatus").equals("1")) { //待接单＝1 待取货＝2 配送中＝3 已完成＝4 已取消＝5
+                        ivStatus.setBackgroundResource(R.mipmap.btn1);
+                        ivStatus.setVisibility(View.GONE);
+                        tvStatus.setText("呼叫中");
+                        tvStatusRight.setVisibility(View.GONE);
+                        tvStatus.setBackgroundResource(R.color.green2);
+                    } else if (item.get("dadaStatus").equals("2")) {
+                        ivStatus.setBackgroundResource(R.mipmap.finish);
+                        tvStatus.setText("骑手已接单");
+                        ivStatus.setVisibility(View.GONE);
+                        tvStatusRight.setVisibility(View.GONE);
+                        tvStatus.setBackgroundResource(R.color.green2);
+                    } else if (item.get("dadaStatus").equals("3")) {
+                        ivStatus.setBackgroundResource(R.mipmap.btn4);
+                        tvStatus.setText("骑手已取货");
+                        ivStatus.setVisibility(View.GONE);
+                        tvStatusRight.setVisibility(View.GONE);
+                        tvStatus.setBackgroundResource(R.color.green2);
+                    } else if (item.get("dadaStatus").equals("4")) {
+                        ivStatus.setBackgroundResource(R.mipmap.finish2);
+                        tvStatusRight.setText("");
+                        tvStatus.setText("已完成");
+                        tvStatus.setBackgroundResource(R.color.green2);
+                        tvStatusRight.setVisibility(View.GONE);
+                    } else if (item.get("dadaStatus").equals("5")) {
+                        ivStatus.setBackgroundResource(R.mipmap.callqishou);
+                        tvStatus.setText("异常");
+                        tvStatus.setBackgroundResource(R.color.red);
+                        tvStatusRight.setVisibility(View.VISIBLE);
+                        if (item.get("dadaCancelFrom").equals(1)) {// 1:达达配送员取消；
+                            tvStatus.setText("异常");
+                            ivStatusBottom.setVisibility(View.GONE);
+                            ivStatus.setBackgroundResource(R.mipmap.callqishou);
+                            tvStatusRight.setText("! 骑手取消订单");
+                        } else if (item.get("dadaCancelFrom").equals(3)) {
+                            tvStatus.setText("异常");
+                            ivStatusBottom.setVisibility(View.GONE);
+                            ivStatus.setBackgroundResource(R.mipmap.callqishou);
+                            tvStatusRight.setText("! 客服取消订单");
+                        }
+                    }
+
+                } else if (item.get("status").equals(-1)) {
+                    ivStatus.setBackgroundResource(R.mipmap.btn5);
+                    tvStatus.setText("已退款");
+                    tvStatus.setBackgroundResource(R.color.red);
+                    tvStatusRight.setVisibility(View.GONE);
+                }
+
+            } else {
+                //影院服务订单  ordertype  3
                 tvType.setText("服务号：");
                 llSerive.setVisibility(View.VISIBLE);
                 lvDetail.setVisibility(View.GONE);
@@ -545,12 +657,12 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
                 tvStatusDo.setTextColor(Color.parseColor("#AE5CA4"));
                 tvPhone.setText(notNullString(item.get("phone")));
                 tvNote.setText(notNullString(item.get("remark")));
-                List<Map<String,Object>> lists= (List<Map<String, Object>>) item.get("attrList");
+                List<Map<String, Object>> lists = (List<Map<String, Object>>) item.get("attrList");
                 tvThing.setText(notNullString(lists.get(0).get("goodsName")));
-                if (lists.size()>1){
+                if (lists.size() > 1) {
                     tvThing1.setVisibility(View.VISIBLE);
                     tvThing1.setText(notNullString(lists.get(1).get("goodsName")));
-                }else{
+                } else {
                     tvThing1.setVisibility(View.GONE);
                 }
                 ivStatusBottom.setVisibility(View.GONE);
@@ -569,15 +681,14 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
                         ivStatusBottom.setVisibility(View.GONE);
                         tvStatusRight.setVisibility(View.GONE);
                     }
-                }
-                else{
+                } else {
 
                 }
             }
             items = (List<Map<String, Object>>) item.get("attrList");
-            giftsItem=(List<Map<String, Object>>) item.get("giftList");
+            giftsItem = (List<Map<String, Object>>) item.get("giftList");
 
-            MyAdapterSon myAdapters = new MyAdapterSon(getActivity(), items,item);
+            MyAdapterSon myAdapters = new MyAdapterSon(getActivity(), items, item);
             LinearLayoutManager LayoutManager = new LinearLayoutManager(getActivity());
             lvDetail.setLayoutManager(LayoutManager);
             lvDetail.setAdapter(myAdapters);
@@ -585,20 +696,21 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
             lvDetail.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
-                    if(motionEvent.getAction()==MotionEvent.ACTION_UP){
-                        if (item.get("orderType").equals(3)){
+                    if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                        if (item.get("orderType").equals(3)) {
 
-                        }else{
-                                startActivityForResult(new Intent(getActivity(),OrderFragment.class)
-                                        .putExtra("tag",item.get("id").toString())
-                                        .putExtra("map",item.toString()),1
-                                );}
+                        } else {
+                            startActivityForResult(new Intent(getActivity(), OrderFragment.class)
+                                    .putExtra("tag", item.get("id").toString())
+                                    .putExtra("map", item.toString()), 1
+                            );
+                        }
                     }
                     return false;
                 }
             });
 
-            MyAdapterGoods goodmyAdapter = new MyAdapterGoods(getActivity(), giftsItem,item);
+            MyAdapterGoods goodmyAdapter = new MyAdapterGoods(getActivity(), giftsItem, item);
             LinearLayoutManager LayoutManager2 = new LinearLayoutManager(getActivity());
             rlZb.setLayoutManager(LayoutManager2);
             rlZb.setAdapter(goodmyAdapter);
@@ -606,14 +718,15 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
             rlZb.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
-                    if(motionEvent.getAction()==MotionEvent.ACTION_UP){
-                        if (item.get("orderType").equals(3)){
+                    if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                        if (item.get("orderType").equals(3)) {
 
-                        }else{
-                        startActivityForResult(new Intent(getActivity(),OrderFragment.class)
-                                .putExtra("tag",item.get("id").toString())
-                                .putExtra("map",item.toString()),1
-                        );}
+                        } else {
+                            startActivityForResult(new Intent(getActivity(), OrderFragment.class)
+                                    .putExtra("tag", item.get("id").toString())
+                                    .putExtra("map", item.toString()), 1
+                            );
+                        }
                     }
                     return false;
                 }
@@ -622,33 +735,39 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
             ivStatus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (item.get("status").equals(1)) {
-                        if(item.get("orderType").equals(2)){
-                        if (item.get("cookStatus").equals(1)) {
-                            cookDone(item.get("id").toString(),holder.getAdapterPosition());
-                        } else if (item.get("cookStatus").equals(3)) {
-                            confirm(item.get("id").toString(), holder.getAdapterPosition());
-                        }else if (item.get("cookStatus").equals(0)) {
-                            catchOrder(item.get("id").toString(), holder.getAdapterPosition());
-                        }
-                        }
-                        else if(item.get("orderType").equals(1)){
+                    if (item.get("status").equals(1)) {   //已付款
+                        if (item.get("orderType").equals(2)) {
+                            if (item.get("cookStatus").equals(1)) {
+                                cookDone(item.get("id").toString(), holder.getAdapterPosition());
+                            } else if (item.get("cookStatus").equals(3)) {
+                                confirm(item.get("id").toString(), holder.getAdapterPosition());
+                            } else if (item.get("cookStatus").equals(0)) {
+                                catchOrder(item.get("id").toString(), holder.getAdapterPosition());
+                            }
+                        } else if (item.get("orderType").equals(1)) {
                             if (item.get("cookStatus").equals(1)) {
                                 confirm(item.get("id").toString(), holder.getAdapterPosition());
                             } else if (item.get("cookStatus").equals(3)) {
                                 confirm(item.get("id").toString(), holder.getAdapterPosition());
-                            }else if (item.get("cookStatus").equals(0)) {
+                            } else if (item.get("cookStatus").equals(0)) {
                                 catchOrder(item.get("id").toString(), holder.getAdapterPosition());
                             }
-                        }
-                        else{
+                        } else if (item.get("orderType").equals(4)) {   //外卖 点击
+                            if (item.get("cookStatus").equals(1)) {
+                                confirm(item.get("id").toString(), holder.getAdapterPosition());
+                            } else if (item.get("cookStatus").equals(3)) {
+                                confirm(item.get("id").toString(), holder.getAdapterPosition());
+                            } else if (item.get("cookStatus").equals(0)) {
+                                catchOrder(item.get("id").toString(), holder.getAdapterPosition());
+                            }
+                        } else {
                             if (item.get("cookStatus").equals(2)) {
-                                Update(item.get("id").toString(), holder.getAdapterPosition(),"3");
-                            }else if (item.get("cookStatus").equals(1)) {
-                                Update(item.get("id").toString(), holder.getAdapterPosition(),"2");
+                                Update(item.get("id").toString(), holder.getAdapterPosition(), "3");
+                            } else if (item.get("cookStatus").equals(1)) {
+                                Update(item.get("id").toString(), holder.getAdapterPosition(), "2");
                             }
                         }
-                    }else{
+                    } else {
                     }
                 }
             });
@@ -656,13 +775,14 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
             llDetails.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (item.get("orderType").equals(3)){
+                    if (item.get("orderType").equals(3)) {
 
-                    }else{
-                    startActivityForResult(new Intent(getActivity(),OrderFragment.class)
-                            .putExtra("tag",item.get("id").toString())
-                            .putExtra("map",item.toString()),1
-                    );}
+                    } else {
+                        startActivityForResult(new Intent(getActivity(), OrderFragment.class)
+                                .putExtra("tag", item.get("id").toString())
+                                .putExtra("map", item.toString()), 1
+                        );
+                    }
                 }
             });
             ivld.setOnClickListener(new View.OnClickListener() {
@@ -671,11 +791,12 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
 //                    if (popLingdang==null){
 //
 //                    }
-                    popLingdang=new PopLingdang(getContext(),item.get("id").toString(),holder.getAdapterPosition());
+                    popLingdang = new PopLingdang(getContext(), item.get("id").toString(), holder.getAdapterPosition());
                     popLingdang.show(getActivity());
                 }
             });
         }
+
         //通知用户
         @Override
         public int getItemCount() {
@@ -687,6 +808,7 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
             super.onAttachedToRecyclerView(recyclerView);
             mRecyclerView = recyclerView;
         }
+
         RecyclerView mRecyclerView;
 
         @Override
@@ -694,6 +816,7 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
 
         }
     }
+
     //确定收货
     private void confirm(String orderCard, final int position) {
         Map<String, String> parmsMap = new HashMap<>();
@@ -706,12 +829,13 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
                 if (appBack.isSuccess()) {
                     listItem.get(position).put("cookStatus", 2);
                     myAdpter.notifyDataSetChanged();
-                    page=1;
+                    page = 1;
                     loadData();
                 }
             }
         }, parmsMap);
     }
+
     //接单
     private void catchOrder(String orderCard, final int position) {
         Map<String, String> parmsMap = new HashMap<>();
@@ -727,13 +851,16 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
                     listItem.get(position).put("cookStatus", 1);
                     myAdpter.notifyDataSetChanged();
 //                        handler.removeCallbacks(noticeRunnable);
-                    page=1;
+                    page = 1;
                     loadData();
 
+                }else {
+                    toast(appBack.getE_msg());
                 }
             }
         }, parmsMap);
     }
+
     //配餐完成
     private void cookDone(String orderCard, final int position) {
         Map<String, String> parmsMap = new HashMap<>();
@@ -746,12 +873,13 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
                 if (appBack.isSuccess()) {
                     listItem.get(position).put("cookStatus", 3);
                     myAdpter.notifyDataSetChanged();
-                    page=1;
+                    page = 1;
                     loadData();
                 }
             }
         }, parmsMap);
     }
+
     //服务号接单
     private void Update(String orderCard, final int position, final String orderType) {
         Map<String, String> parmsMap = new HashMap<>();
@@ -764,30 +892,30 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
             @Override
             public void onSuccess(AppBack appBack) {
                 if (appBack.isSuccess()) {
-                    if (orderType=="2"){
-                    listItem.get(position).put("cookStatus", 2);
-                    PrintOrderUtils.print(listItem.get(position));//打印某一订单
-                         }
-                    else{
+                    if (orderType == "2") {
+                        listItem.get(position).put("cookStatus", 2);
+                        PrintOrderUtils.print(listItem.get(position));//打印某一订单
+                    } else {
                         listItem.get(position).put("cookStatus", 3);
                     }
                     myAdpter.notifyDataSetChanged();
-                    page=1;
+                    page = 1;
                     loadData();
                 }
             }
         }, parmsMap);
     }
+
     public class MyAdapterSon extends RecyclerView.Adapter<MyViewHolder> implements View.OnClickListener {
         private List<Map<String, Object>> data;
-        private Map<String,Object> item;
+        private Map<String, Object> item;
         private LayoutInflater inflater;
         private Context context;
 
-        public MyAdapterSon(Context context, List<Map<String, Object>> data,Map<String,Object> item) {
+        public MyAdapterSon(Context context, List<Map<String, Object>> data, Map<String, Object> item) {
             this.context = context;
             this.data = data;
-            this.item=item;
+            this.item = item;
             inflater = LayoutInflater.from(context);
         }
 
@@ -798,10 +926,10 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
             itemView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
-                    if(motionEvent.getAction()==MotionEvent.ACTION_UP){
-                        startActivityForResult(new Intent(getActivity(),OrderFragment.class)
-                                .putExtra("tag",item.get("id").toString())
-                                .putExtra("map",item.toString()),1
+                    if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                        startActivityForResult(new Intent(getActivity(), OrderFragment.class)
+                                .putExtra("tag", item.get("id").toString())
+                                .putExtra("map", item.toString()), 1
                         );
                     }
                     return false;
@@ -810,17 +938,18 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
             final MyViewHolder holder = new MyViewHolder(itemView);
             return holder;
         }
+
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-            TextView tvGoodsName= (TextView) holder.getView(R.id.tv_goods_name);
-            TextView tvGoodsNum= (TextView) holder.getView(R.id.tv_goods_num);
-            TextView tvGoodsBig= (TextView) holder.getView(R.id.tv_goods_big);
-            TextView tvGoodsWei= (TextView) holder.getView(R.id.tv_goods_wei);
-            LinearLayout llGoods= (LinearLayout) holder.getView(R.id.ll_goods);
+            TextView tvGoodsName = (TextView) holder.getView(R.id.tv_goods_name);
+            TextView tvGoodsNum = (TextView) holder.getView(R.id.tv_goods_num);
+            TextView tvGoodsBig = (TextView) holder.getView(R.id.tv_goods_big);
+            TextView tvGoodsWei = (TextView) holder.getView(R.id.tv_goods_wei);
+            LinearLayout llGoods = (LinearLayout) holder.getView(R.id.ll_goods);
             llGoods.setVisibility(View.VISIBLE);
             Map<String, Object> items = data.get(position);
             tvGoodsName.setText(notNullString(items.get("goodsName")));
-            tvGoodsNum.setText(notNullString("x"+items.get("count")));
+            tvGoodsNum.setText(notNullString("x" + items.get("count")));
             tvGoodsBig.setText(notNullString(items.get("attrName")));
             tvGoodsWei.setText(notNullString(items.get("attr2")));
         }
@@ -835,16 +964,17 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
 
         }
     }
+
     public class MyAdapterGoods extends RecyclerView.Adapter<MyViewHolder> implements View.OnClickListener {
         private List<Map<String, Object>> data;
         private LayoutInflater inflater;
         private Context context;
-        private Map<String,Object> item;
+        private Map<String, Object> item;
 
-        public MyAdapterGoods (Context context, List<Map<String, Object>> data,Map<String,Object> item) {
+        public MyAdapterGoods(Context context, List<Map<String, Object>> data, Map<String, Object> item) {
             this.context = context;
             this.data = data;
-            this.item=item;
+            this.item = item;
             inflater = LayoutInflater.from(context);
         }
 
@@ -855,10 +985,10 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
             itemView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
-                    if(motionEvent.getAction()==MotionEvent.ACTION_UP){
-                        startActivityForResult(new Intent(getActivity(),OrderFragment.class)
-                                .putExtra("tag",item.get("id").toString())
-                                .putExtra("map",item.toString()),1
+                    if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                        startActivityForResult(new Intent(getActivity(), OrderFragment.class)
+                                .putExtra("tag", item.get("id").toString())
+                                .putExtra("map", item.toString()), 1
                         );
                     }
                     return false;
@@ -872,7 +1002,7 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
         public void onBindViewHolder(MyViewHolder holder, int position) {
             TextView tvGoodsName = (TextView) holder.getView(R.id.tv_goods_name);
             TextView tvGoodsNum = (TextView) holder.getView(R.id.tv_goods_num);
-            LinearLayout llGoods= (LinearLayout) holder.getView(R.id.ll_goods);
+            LinearLayout llGoods = (LinearLayout) holder.getView(R.id.ll_goods);
             llGoods.setVisibility(View.GONE);
             Map<String, Object> item = data.get(position);
             tvGoodsName.setText(notNullString(item.get("giftName")));
@@ -889,23 +1019,25 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
 
         }
     }
-    private class PopLingdang extends PushPopupWindow{
 
-        private String id="";
+    private class PopLingdang extends PushPopupWindow {
+
+        private String id = "";
         private int position;
-        public PopLingdang(Context context,String id,int position) {
+
+        public PopLingdang(Context context, String id, int position) {
             super(context);
             initView();
             setTouchable(true);
-            this.id=id;
-            this.position=position;
+            this.id = id;
+            this.position = position;
         }
 
         @Override
         protected View generateCustomView() {
-            View view=View.inflate(context,R.layout.pop_style_lingdan,null);
-            TextView tvSummit=view.findViewById(R.id.btn_contact_us_confirm);
-            TextView tvCancel=view.findViewById(R.id.btn_contact_us_cancel);
+            View view = View.inflate(context, R.layout.pop_style_lingdan, null);
+            TextView tvSummit = view.findViewById(R.id.btn_contact_us_confirm);
+            TextView tvCancel = view.findViewById(R.id.btn_contact_us_cancel);
             tvCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

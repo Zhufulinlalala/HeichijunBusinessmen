@@ -39,7 +39,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
+/*首页页面进入之后的fragment */
 public class OrderFragment extends BaseActivity {
     @BindView(R.id.tv_title)
     TextView tvTitle;

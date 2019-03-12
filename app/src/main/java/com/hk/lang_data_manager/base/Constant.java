@@ -6,7 +6,7 @@ package com.hk.lang_data_manager.base;
 
 public class Constant {
     //TODO  修改常量值
-    public static final String URL="https://bp.weshine.vip/";
+    public static final String URL="https://bp.weshine.vip:8080/";
    // public static final String URL="http://k17566x367.imwork.net:58209/";
     //public static final String URL="https://weshine.vip:8080/";
     public static final String BUGLY_APPID="7fe709fcdc";

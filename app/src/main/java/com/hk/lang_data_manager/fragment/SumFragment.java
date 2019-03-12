@@ -48,6 +48,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+/*  数据 页面 */
 public class SumFragment extends BaseFragement {
     @BindView(R.id.tv_num_money)
     TextView tvNumMoney;

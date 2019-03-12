@@ -35,6 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/*数据页面进入之后的fragment */
 public class OrderFragment2 extends BaseActivity {
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -202,7 +203,7 @@ public class OrderFragment2 extends BaseActivity {
                         tvReturnMoney.setEnabled(true);
                         llTs.setVisibility(View.GONE);
                     }
-                    if (item.get("status").equals(1)) {
+                    if (item.get("status").equals(1)) { // 0 代付款 1已付款 -10删除 -1已退款
                         if (item.get("orderType").equals(2)) {
                             llSong.setVisibility(View.VISIBLE);
                             tvSongMoney.setText("￥" + item.get("freight"));

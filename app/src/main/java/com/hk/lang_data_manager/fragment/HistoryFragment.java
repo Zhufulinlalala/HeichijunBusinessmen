@@ -36,7 +36,7 @@ import java.util.TimerTask;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-
+/*   商品  管理   */
 public class HistoryFragment extends BaseFragement {
     private List<Map<String, Object>> listItem = new ArrayList<>();
     @BindView(R.id.il_lv)

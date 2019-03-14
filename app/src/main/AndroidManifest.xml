@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hk.lang_data_manager"
+    package="com.hk.heichijun"
     android:versionCode="311"
     android:versionName="3.1.1">
 
@@ -15,11 +15,11 @@
 
     <!-- Required -->
     <permission
-        android:name="com.hk.lang_data_manager.permission.JPUSH_MESSAGE"
+        android:name="com.hk.heichijun.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
 
     <!-- Required -->
-    <uses-permission android:name="com.hk.lang_data_manager.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="com.hk.heichijun.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
@@ -52,7 +52,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name=".base.SaflyApplication"
+        android:name="com.hk.heichijun.base.SaflyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
@@ -70,7 +70,7 @@
             android:value="MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCl7kk9vMelBNcTtR8bLG4QyDIohKejaTljCwQBAG2nVBh5Na2hRtZIIyqAWzMeaySc0wRfUSEqH1/tokV6GZJWRT++wWN4u21k5Y41hhSFaGOHrFsqRjESHk7ByXcUepk2TCINZZgy5Mg0EKgpwmay8c9g37w1JcB7MydidomWBuu/OtmeYFBjxdIeUQhnbaEW6sL5CPnYF7Ngkt1ryc1qqolg6r4vxYEQ7I5svS7G0HBggN4HHHYbjCMFyoVBf2q2MqWZ+AFgmuk1qWYHerwUII6w9UYarua9dbJ+HApkXlqpn/2DKcceUtjXq/Z+jonswDuHsSyYWI0f8CFojedfAgMBAAECggEAUidom+ib8Fg1JMzIWevlkumL7APB/GZcw2zwzo4nvHEmrNym2vL3pT/EC0kcRjNGLV9NCuRgRzrBhCaTv6Bpk801gny9g0lJIGuHvXhlMKg+ny329TdLlGztEYVuL/WDZh7LvVZPxOMBPMYCfKqDrpWK16vuw2Gtq1HobhfCh0SY+GFY7uAak/BYMgm5wizPypeAk8i7fAMaPOxsTXZLIZ1hmOiK5GCk3gQPDrSbxqzj8Ur9y62/KWxuf8N2GPeVms7y2MNqMOLyyu+8GBb1lWHf4U/aBsoJqX446cHznIRCQVunxrWeIarRBMZvq/Cvi5P0O8BlHS6pKNvynwcEAQKBgQDiUjqjNepPCW9YQUqjdGzsQdIDsqd+846o3Ebfrga0kHetUIk5p4XDljhgkO44QGGgaJimG5RCoR7Eg4Gmvv69USI/vCPUqNQOBb3XnaMvixO+p9elFzi5NT4g6x7BGslpsZD7L2dIinTQyVk/rLh3YscvzZcmVPuRYF84yYXtJwKBgQC7sLTXWmC5Pfm5t+W7tBZG00WZEEebrQEKAvthxA2iAUN/O7mZIejRr+dTlJWSFMFI6edXjUV29MgRaSYb4xbHgY6F3mkbIzkxrF2df+ib1p/VD02iWYUyLMMpv3a+MOeB1wCL5ve5+cry+nIcaxR3jfwTrpP1XffyeVchNo+HCQKBgDa9IreU8734DzkuWYodP7cI2G3SiRZ4fBm1ZWL2aWLEyl1d7ELIlN7Qd4RLqYJrd/FfOwR6CSrwY0uubu5QpbZOaFU4AQaPavKVSuxakTyPi9ACMnMYobyR9xvpIkAcZXit3N4UAgwWiNhyyqZO9TLS7lBOjm9UAKCRyZYnj7/jAoGAOXVEN3U8jRkS/S72Dnt4ImCFOvGH6nmRCt6U1H4vajwWzLmc/Osrmh3OpIClNV5TOZ4Zq2zdKiiPovzcpMblb1gTKJpI9PzYgoNw+UlyDVsr/Q69Rok/RHf9myc5E8pm5RHL4ghoKC/3WGEhU9/YGS2HUQMt2nzU7g8FhG5ui/kCgYAFkmg+bfzUjaLYLtyOs63LLlAMH0c2D4yj/mLtZjmwHUVsA/uVGdjdj/tNuQGEJtR/8ya0zT/T1Vz/joANzSJp40HOvALzBy+PcU/s5GRBanpDj7yD/J87G3CW+3Mz/f+EY108VJdS6U+tijZCJG5OANc/O8wyxG6GUyxp0ZgV4w==" />
 
 
-        <activity android:name=".activity.LoginActivity">
+        <activity android:name="com.hk.heichijun.activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -78,7 +78,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.TestActivity"
+            android:name="com.hk.heichijun.activity.TestActivity"
             android:exported="false">
             <intent-filter>
                 <action android:name="jpush.testAction" />
@@ -114,7 +114,7 @@
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.DaemonService" />
 
-                <category android:name="com.hk.lang_data_manager" />
+                <category android:name="com.hk.heichijun" />
             </intent-filter>
         </service>
 
@@ -125,7 +125,7 @@
             android:exported="false">
             <intent-filter android:priority="1000">
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" /> <!-- Required  显示通知栏 -->
-                <category android:name="com.hk.lang_data_manager" />
+                <category android:name="com.hk.heichijun" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
@@ -143,7 +143,7 @@
         <!-- since 3.0.9 Required SDK 核心功能 -->
         <provider
             android:name="cn.jpush.android.service.DataProvider"
-            android:authorities="com.hk.lang_data_manager.DataProvider"
+            android:authorities="com.hk.heichijun.DataProvider"
             android:exported="false" />
 
         <!-- Required SDK核心功能 -->
@@ -156,7 +156,7 @@
                 <action android:name="cn.jpush.android.ui.PushActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="com.hk.lang_data_manager" />
+                <category android:name="com.hk.heichijun" />
             </intent-filter>
         </activity>
 
@@ -169,11 +169,11 @@
         <!-- since 3.1.0 Required SDK 核心功能 -->
         <provider
             android:name="cn.jpush.android.service.DownloadProvider"
-            android:authorities="com.hk.lang_data_manager.DownloadProvider"
+            android:authorities="com.hk.heichijun.DownloadProvider"
             android:exported="true" />
 
         <receiver
-            android:name=".MyReceiver"
+            android:name="com.hk.heichijun.MyReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -187,7 +187,7 @@
                 <!-- 接收⽹网络变化 连接/断开 since 1.6.3 -->
                 <action android:name="cn.jpush.android.intent.CONNECTION" />
 
-                <category android:name="com.hk.lang_data_manager" />
+                <category android:name="com.hk.heichijun" />
             </intent-filter>
         </receiver>
 
@@ -199,8 +199,8 @@
             android:name="JPUSH_APPKEY"
             android:value="fcf2815781bafbf9095b72d2" />
 
-        <activity android:name=".fragment.OrderFragment" />
-        <activity android:name=".fragment.OrderFragment2" />
+        <activity android:name="com.hk.heichijun.fragment.OrderFragment" />
+        <activity android:name="com.hk.heichijun.fragment.OrderFragment2" />
         <activity
             android:name="com.foamtrace.photopicker.PhotoPickerActivity"
             android:configChanges="orientation|screenSize"
@@ -224,12 +224,12 @@
             android:name="android.max_aspect"
             android:value="2.1" />
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".MasterActivity" />
-        <activity android:name=".activity.SearchActivity" />
-        <activity android:name=".activity.SearchActivity2" />
+        <activity android:name="com.hk.heichijun.MainActivity" />
+        <activity android:name="com.hk.heichijun.MasterActivity" />
+        <activity android:name="com.hk.heichijun.activity.SearchActivity" />
+        <activity android:name="com.hk.heichijun.activity.SearchActivity2" />
         <!--<activity android:name=".activity.DatePickerSelActivity" />-->
-        <activity android:name=".activity.TongActivity"></activity>
+        <activity android:name="com.hk.heichijun.activity.TongActivity"></activity>
     </application>
 
 </manifest>

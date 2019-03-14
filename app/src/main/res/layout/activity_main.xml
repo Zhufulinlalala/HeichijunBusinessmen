@@ -45,7 +45,7 @@
         app:kswThumbMarginTop="-2.5dp"
         app:kswThumbRangeRatio="1.4"/>
 
-    <com.hk.lang_data_manager.utils.RoundImageView
+    <com.hk.heichijun.utils.RoundImageView
         android:src="@color/green"
         android:layout_width="@dimen/m150"
         android:layout_height="@dimen/m150"

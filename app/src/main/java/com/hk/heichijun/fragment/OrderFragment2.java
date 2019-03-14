@@ -254,8 +254,8 @@ public class OrderFragment2 extends BaseActivity {
                             orderdetialAddressTv.setText("收货地址");
                             dadadeliverynoLin.setVisibility(View.VISIBLE);
                             qishounamephoneLin.setVisibility(View.VISIBLE);
-                            qishounamephoneTv.setText(item.get("dadaStaffName")==null?"暂无":item.get("dadaStaffName") +""+ "/" + item.get("dadaStaffPhone")==null?"暂无":item.get("dadaStaffPhone")+"");
-                            dadadeliverynoTv.setText(item.get("dadaWaybillCode")==null?"暂无":item.get("dadaWaybillCode") + "");
+                            qishounamephoneTv.setText((item.get("dadaStaffName")==null||"".equals(item.get("dadaStaffName"))?"暂无":item.get("dadaStaffName") +"")+ "/" + (item.get("dadaStaffPhone")==null||"".equals(item.get("dadaStaffPhone"))?"暂无":item.get("dadaStaffPhone")+""));
+                            dadadeliverynoTv.setText(item.get("dadaWaybillCode")==null||"".equals(item.get("dadaWaybillCode"))?"暂无":item.get("dadaWaybillCode") + "");
                             tvLocationNum.setText(notNullString(item.get("dadaTakeawayAddress")));
                             llSong.setVisibility(View.VISIBLE);
                             tvSongMoney.setText("￥" + item.get("freight"));
@@ -365,6 +365,7 @@ public class OrderFragment2 extends BaseActivity {
                         tvStatus.setBackgroundResource(R.color.red);
                         tvFinish.setVisibility(View.GONE);
                         tvReturnMoney.setVisibility(View.GONE);
+
                         if (item.get("orderType").equals(2)) {
                             llSong.setVisibility(View.VISIBLE);
                             tvSongMoney.setText("￥" + item.get("freight"));
@@ -379,8 +380,8 @@ public class OrderFragment2 extends BaseActivity {
                             orderdetialAddressTv.setText("收货地址");
                             dadadeliverynoLin.setVisibility(View.VISIBLE);
                             qishounamephoneLin.setVisibility(View.VISIBLE);
-                            qishounamephoneTv.setText(item.get("dadaStaffName")==null?"暂无":item.get("dadaStaffName") +""+ "/" + item.get("dadaStaffPhone")==null?"暂无":item.get("dadaStaffPhone")+"");
-                            dadadeliverynoTv.setText(item.get("dadaWaybillCode")==null?"暂无":item.get("dadaWaybillCode") + "");
+                            qishounamephoneTv.setText((item.get("dadaStaffName")==null||"".equals(item.get("dadaStaffName"))?"暂无":item.get("dadaStaffName") +"")+ "/" + (item.get("dadaStaffPhone")==null||"".equals(item.get("dadaStaffPhone"))?"暂无":item.get("dadaStaffPhone")+""));
+                            dadadeliverynoTv.setText(item.get("dadaWaybillCode")==null||"".equals(item.get("dadaWaybillCode"))?"暂无":item.get("dadaWaybillCode") + "");
                             tvLocationNum.setText(notNullString(item.get("dadaTakeawayAddress")));
                             llSong.setVisibility(View.VISIBLE);
                             tvSongMoney.setText("￥" + item.get("freight"));

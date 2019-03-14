@@ -108,8 +108,10 @@
                         android:visibility="gone"
                         android:layout_marginRight="@dimen/m23"/>
                     <TextView
-                        android:layout_width="@dimen/m45"
+                        android:layout_width="wrap_content"
                         android:layout_height="@dimen/m22"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         android:layout_marginRight="@dimen/m13"
                         android:id="@+id/tv_status"
                         android:gravity="center"
@@ -370,10 +372,9 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/m3"
                     android:layout_marginBottom="@dimen/m3"
-                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -409,8 +410,7 @@
                     android:layout_marginTop="@dimen/m3"
                     android:layout_marginBottom="@dimen/m3"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:id="@+id/ll_people_phone"
                     android:orientation="horizontal">
 
@@ -446,7 +446,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/m3"
                     android:layout_marginBottom="@dimen/m3"
                     android:id="@+id/ll_people_seat"
@@ -461,9 +461,12 @@
                         android:gravity="center_vertical">
 
                         <TextView
+                            android:id="@+id/orderdetial_address_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="座位号"
+                            android:layout_gravity="top"
+                            android:gravity="top"
                             android:textSize="@dimen/m13" />
                     </LinearLayout>
 
@@ -475,6 +478,7 @@
                         android:gravity="center_vertical|right">
 
                         <TextView
+                            android:text=""
                             android:id="@+id/tv_location_num"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -636,6 +640,81 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/dadadeliveryno_lin"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="@dimen/m7"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/m13"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/dadadeliveryno_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="达达运单号"
+                            android:textSize="@dimen/m13" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/m13"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right">
+
+                        <TextView
+                            android:id="@+id/dadadeliveryno_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/m13" />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/qishounamephone_lin"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="@dimen/m7"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/m13"
+
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/qishounamephone_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="骑手联系方式"
+                            android:textSize="@dimen/m13" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/m13"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right">
+
+                        <TextView
+                            android:id="@+id/qishounamephone_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/m13" />
+                    </LinearLayout>
+                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>

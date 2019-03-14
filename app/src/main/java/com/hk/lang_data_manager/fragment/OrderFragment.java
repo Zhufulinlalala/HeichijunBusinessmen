@@ -39,6 +39,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 /*首页页面进入之后的fragment */
 public class OrderFragment extends BaseActivity {
     @BindView(R.id.tv_title)
@@ -100,12 +101,27 @@ public class OrderFragment extends BaseActivity {
     LinearLayout llFillFree;
     @BindView(R.id.tv_fill_free)
     TextView tvFillFree;
+
+
+    @BindView(R.id.dadadeliveryno_lin)
+    LinearLayout dadadeliverynoLin;
+    @BindView(R.id.dadadeliveryno_tv)
+    TextView dadadeliverynoTv;
+
+    @BindView(R.id.qishounamephone_lin)
+    LinearLayout qishounamephoneLin;
+    @BindView(R.id.qishounamephone_tv)
+    TextView qishounamephoneTv;
+
     @BindView(R.id.tv_dazhe)
     TextView tvDazhe;
     @BindView(R.id.tv_order_thing)
     TextView tv_order_thing;
     @BindView(R.id.tv_pay)
     TextView tvPay;
+    @BindView(R.id.orderdetial_address_tv)
+    TextView orderdetialAddressTv;
+
     private List<Map<String, Object>> listItem = new ArrayList<>();
     private List<Map<String, Object>> giftsItem = new ArrayList<>();
     private Map<String, Object> item = new HashMap<>();
@@ -290,7 +306,97 @@ public class OrderFragment extends BaseActivity {
                                 tvStatus.setBackgroundResource(R.color.green2);
                                 tvReturnMoney.setVisibility(View.VISIBLE);
                             }
-                        } else {
+                        }
+                        else if (item.get("orderType").equals(4)) { //外卖
+                            orderdetialAddressTv.setText("收货地址");
+                            dadadeliverynoLin.setVisibility(View.VISIBLE);
+                            qishounamephoneLin.setVisibility(View.VISIBLE);
+                            qishounamephoneTv.setText(item.get("dadaStaffName")==null?"暂无":item.get("dadaStaffName") + "/" + item.get("dadaStaffPhone")==null?"暂无":item.get("dadaStaffPhone")+"");
+                            dadadeliverynoTv.setText(item.get("dadaWaybillCode")==null?"暂无":item.get("dadaWaybillCode") + "");
+                            tvLocationNum.setText(notNullString(item.get("dadaTakeawayAddress")));
+                            llSong.setVisibility(View.VISIBLE);
+                            tvSongMoney.setText("￥" + item.get("freight"));
+                            ivStatusBottom.setVisibility(View.GONE);
+                            tvReturnMoney.setVisibility(View.VISIBLE);
+                            tvGoodsMiss.setVisibility(View.GONE);
+
+                            if (item.get("isChangeSeat").equals(1)) {
+                                tvError.setVisibility(View.VISIBLE);
+                                tvError.setText("(已变更)");
+                            } else {
+                                tvError.setVisibility(View.GONE);
+                            }
+
+                            if (item.get("freightFree").equals(1)) {
+                                llPostFree.setVisibility(View.VISIBLE);
+                                tvPostFree.setText("-￥" + item.get("freight"));
+                            } else {
+                                llPostFree.setVisibility(View.GONE);
+                            }
+                            if (item.get("cookStatus").equals(0)) {
+                                tvStatus.setText("未接单");
+                                tvError.setVisibility(View.GONE);
+                                tvFinish.setText("接单");
+                                tvStatus.setBackgroundResource(R.color.gray3);
+                            } else if (item.get("dadaStatus").equals(9)) {
+                                tvStatus.setText("异常");
+                                tvStatus.setBackgroundResource(R.color.red);
+                                tvFinish.setVisibility(View.VISIBLE);
+                                tvFinish.setText("返还餐品");
+                                tvError.setVisibility(View.VISIBLE);
+                                tvError.setText("! 妥投异常");
+                            } else if (item.get("dadaStatus").equals(10)) {
+
+                                tvStatus.setText("异常");
+                                tvStatus.setBackgroundResource(R.color.red);
+                                tvFinish.setVisibility(View.VISIBLE);
+                                tvFinish.setText("返还餐品");
+                                tvError.setVisibility(View.VISIBLE);
+                                tvError.setText("! 妥投异常");
+                            } else if (item.get("dadaStatus").equals(0)) {
+                                //未呼叫达达:0
+                                tvStatus.setText("已接单");
+                                tvStatus.setBackgroundResource(R.color.green2);
+                                tvError.setVisibility(View.GONE);
+                                tvFinish.setVisibility(View.VISIBLE);
+                                tvFinish.setText("呼叫骑手");
+                            } else if (item.get("dadaStatus").equals(1)) {
+                                tvStatus.setBackgroundResource(R.color.green2);
+                                tvStatus.setText("呼叫中");
+                                tvFinish.setVisibility(View.GONE);
+                                tvError.setVisibility(View.GONE);
+                            } else if (item.get("dadaStatus").equals(2)) {
+                                tvStatus.setText("骑手已接单");
+                                tvError.setVisibility(View.GONE);
+                                tvFinish.setVisibility(View.GONE);
+                                tvStatus.setBackgroundResource(R.color.green2);
+                            } else if (item.get("dadaStatus").equals(3)) {
+                                tvStatus.setText("骑手已取货");
+                                tvError.setVisibility(View.GONE);
+                                tvFinish.setVisibility(View.GONE);
+                                tvStatus.setBackgroundResource(R.color.green2);
+                            } else if (item.get("dadaStatus").equals(4)) {
+                                tvStatus.setText("已完成");
+                                tvFinish.setText("完成");
+                                tvError.setVisibility(View.GONE);
+                                tvStatus.setBackgroundResource(R.color.green2);
+                                tvFinish.setVisibility(View.VISIBLE);
+                            } else if (item.get("dadaStatus").equals(5)) {
+                                tvStatus.setText("异常");
+                                tvStatus.setBackgroundResource(R.color.red);
+                                tvError.setVisibility(View.VISIBLE);
+                                tvFinish.setVisibility(View.VISIBLE);
+                                tvFinish.setText("呼叫骑手");
+                                if (item.get("dadaCancelFrom").equals(1)) {// 1:达达配送员取消；
+                                    ivStatusBottom.setVisibility(View.GONE);
+                                    tvError.setText("! 骑手取消订单");
+                                } else if (item.get("dadaCancelFrom").equals(3)) {
+                                    ivStatusBottom.setVisibility(View.GONE);
+                                    tvError.setText("! 客服取消订单");
+                                }
+                            }
+                        }
+                        else {
                             llPostFree.setVisibility(View.GONE);
                             llSong.setVisibility(View.GONE);
                             llPeoplePhone.setVisibility(View.GONE);
@@ -394,63 +500,99 @@ public class OrderFragment extends BaseActivity {
                     tvFinish.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            if (item.get("cookStatus").equals(0)) {//未接单
-                                if (isNull(popStyleIphonejiedan)) {
-                                    popStyleIphonejiedan = new PopStyleIphonejiedan(OrderFragment.this);
-                                    popStyleIphonejiedan.btn_sure.setOnClickListener(new View.OnClickListener() {
+                            if (item.get("orderType").equals(4)) {  //外卖
+                                if (item.get("dadaStatus").equals(-1)) {
+                                    if (isNull(popStyleIphonejiedan)) {
+                                        popStyleIphonejiedan = new PopStyleIphonejiedan(OrderFragment.this);
+                                        popStyleIphonejiedan.btn_sure.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                catchOrder(item.get("id").toString());
+                                                popStyleIphonejiedan.dismiss();
+                                            }
+                                        });
+                                    }
+                                    popStyleIphonejiedan.show(OrderFragment.this);
+                                }
+                                if (item.get("dadaStatus").equals(9)) {  //返回餐品  到时候会走明伟接口
+                                    returnMeal(item.get("orderCode").toString());
+                                }
+                                if (item.get("dadaStatus").equals(0) || item.get("dadaStatus").equals(10) || item.get("dadaStatus").equals(5)) { //已接单（有呼叫骑手 ）
+                                    exitPw = new PopStyleIphone(OrderFragment.this);
+                                    exitPw.tv_text.setText("是否呼叫骑手");
+                                    exitPw.btn_sure.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            catchOrder(item.get("id").toString());
-                                            popStyleIphonejiedan.dismiss();
+                                            callqishou(item.get("id").toString());
+                                            exitPw.dismiss();
                                         }
                                     });
+                                    exitPw.show(OrderFragment.this);
                                 }
-                                popStyleIphonejiedan.show(OrderFragment.this);
-                            } else if (item.get("cookStatus").equals(1) && item.get("orderType").equals(2)) {
-                                exitPw = new PopStyleIphone(OrderFragment.this);
-                                exitPw.tv_text.setText("是否确认配送");
-                                exitPw.btn_sure.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        cookDone(item.get("id").toString());
-                                        exitPw.dismiss();
-                                    }
-                                });
-                                exitPw.show(OrderFragment.this);
-                            } else if (item.get("cookStatus").equals(-1) && item.get("orderType").equals(2)) {
-                                exitPw = new PopStyleIphone(OrderFragment.this);
-                                exitPw.tv_text.setText("是否确认配送");
-                                exitPw.btn_sure.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        cookDone(item.get("id").toString());
-                                        exitPw.dismiss();
-                                    }
-                                });
-                                exitPw.show(OrderFragment.this);
-                            } else if (item.get("cookStatus").equals(-2) && item.get("orderType").equals(2)) {
-                                exitPw = new PopStyleIphone(OrderFragment.this);
-                                exitPw.tv_text.setText("是否确认完成");
-                                exitPw.btn_sure.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        confirm(item.get("id").toString());
-                                        exitPw.dismiss();
-                                    }
-                                });
-                                exitPw.show(OrderFragment.this);
+                                if (item.get("dadaStatus").equals(4)) {                       //已完成
+                                    EventBus.getDefault().post(new String("sss"));  //刷新
+                                    finish();
+                                }
                             } else {
-                                exitPw = new PopStyleIphone(OrderFragment.this);
-                                exitPw.tv_text.setText("是否确认完成");
-                                exitPw.btn_sure.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        confirm(item.get("id").toString());
-                                        exitPw.dismiss();
+                                if (item.get("cookStatus").equals(0)) {//未接单
+                                    if (isNull(popStyleIphonejiedan)) {
+                                        popStyleIphonejiedan = new PopStyleIphonejiedan(OrderFragment.this);
+                                        popStyleIphonejiedan.btn_sure.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                catchOrder(item.get("id").toString());
+                                                popStyleIphonejiedan.dismiss();
+                                            }
+                                        });
                                     }
-                                });
-                                exitPw.show(OrderFragment.this);
+                                    popStyleIphonejiedan.show(OrderFragment.this);
+                                } else if (item.get("cookStatus").equals(1) && item.get("orderType").equals(2)) {
+                                    exitPw = new PopStyleIphone(OrderFragment.this);
+                                    exitPw.tv_text.setText("是否确认配送");
+                                    exitPw.btn_sure.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            cookDone(item.get("id").toString());
+                                            exitPw.dismiss();
+                                        }
+                                    });
+                                    exitPw.show(OrderFragment.this);
+                                } else if (item.get("cookStatus").equals(-1) && item.get("orderType").equals(2)) {
+                                    exitPw = new PopStyleIphone(OrderFragment.this);
+                                    exitPw.tv_text.setText("是否确认配送");
+                                    exitPw.btn_sure.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            cookDone(item.get("id").toString());
+                                            exitPw.dismiss();
+                                        }
+                                    });
+                                    exitPw.show(OrderFragment.this);
+                                } else if (item.get("cookStatus").equals(-2) && item.get("orderType").equals(2)) {
+                                    exitPw = new PopStyleIphone(OrderFragment.this);
+                                    exitPw.tv_text.setText("是否确认完成");
+                                    exitPw.btn_sure.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            confirm(item.get("id").toString());
+                                            exitPw.dismiss();
+                                        }
+                                    });
+                                    exitPw.show(OrderFragment.this);
+                                } else {
+                                    exitPw = new PopStyleIphone(OrderFragment.this);
+                                    exitPw.tv_text.setText("是否确认完成");
+                                    exitPw.btn_sure.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            confirm(item.get("id").toString());
+                                            exitPw.dismiss();
+                                        }
+                                    });
+                                    exitPw.show(OrderFragment.this);
+                                }
                             }
+
                         }
                     });
                     tvReturnMoney.setOnClickListener(new View.OnClickListener() {
@@ -494,6 +636,24 @@ public class OrderFragment extends BaseActivity {
         }, parmsMap);
     }
 
+    //返还餐品
+    private void returnMeal(String orderCard) {
+        /*{"action":null,"eMsg":"success","msg":"成功","result":null,"status":0}*/
+        Map<String, String> parmsMap = new HashMap<>();
+        parmsMap.put("adminId", MySharedPreference.getAdminId());
+        parmsMap.put("token", MySharedPreference.getToken());
+        parmsMap.put("orderCode", orderCard);
+        OkHttpManger.getInstance().getAsync(Constant.URL + "order/returnMeal", new OKHttpUICallback.ResultCallback<AppBack>() {
+            @Override
+            public void onSuccess(AppBack appBack) {
+                if (appBack.isSuccess()) {
+                    inist();
+                }
+            }
+        }, parmsMap);
+    }
+
+
     //配餐完成
     private void cookDone(String orderCard) {
         Map<String, String> parmsMap = new HashMap<>();
@@ -504,6 +664,24 @@ public class OrderFragment extends BaseActivity {
             @Override
             public void onSuccess(AppBack appBack) {
                 if (appBack.isSuccess()) {
+                    inist();
+                }
+            }
+        }, parmsMap);
+    }
+
+    //呼叫骑手
+    private void callqishou(String orderCard) {
+        /*{"action":null,"eMsg":"success","msg":"成功","result":null,"status":0}*/
+        Map<String, String> parmsMap = new HashMap<>();
+        parmsMap.put("adminId", MySharedPreference.getAdminId());
+        parmsMap.put("token", MySharedPreference.getToken());
+        parmsMap.put("id", orderCard);
+        OkHttpManger.getInstance().getAsync(Constant.URL + "order/callRider", new OKHttpUICallback.ResultCallback<AppBack>() {
+            @Override
+            public void onSuccess(AppBack appBack) {
+                if (appBack.isSuccess()) {
+                    EventBus.getDefault().post(new String("catch"));
                     inist();
                 }
             }
@@ -521,7 +699,7 @@ public class OrderFragment extends BaseActivity {
             public void onSuccess(AppBack appBack) {
                 if (appBack.isSuccess()) {
                     if (orderMap.size() > 0) {
-                        PrintOrderUtils.print(orderMap);
+                        //PrintOrderUtils.print(orderMap);
                         EventBus.getDefault().post(new String("catch"));
                         inist();
                     }

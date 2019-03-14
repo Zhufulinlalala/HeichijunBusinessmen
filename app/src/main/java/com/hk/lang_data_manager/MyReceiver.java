@@ -87,20 +87,20 @@ public class MyReceiver extends BroadcastReceiver {
             takeCode=map.get("takeCode").toString();
                 if(type=="1"){
                     //有新订单
-                    TextToVoice("您有新订丹了,请及时处理");
+                    TextToVoice("您有新订单了,请及时处理");
                     EventBus.getDefault().post(new String("sss"));
                 }else if(type=="2"||type=="7"){
                     EventBus.getDefault().post(new String("sss"));
                 }
                 else if(type=="3"){
-                    TextToVoice(takeCode+"号订丹被催丹了，请及时处理");
+                    TextToVoice(takeCode+"号订单被催单了，请及时处理");
                     EventBus.getDefault().post(new String("sss"));
                 }else if(type=="4"){
-                    TextToVoice(takeCode+"号订丹被催丹了，请及时处理");
+                    TextToVoice(takeCode+"号订单被催单了，请及时处理");
                     EventBus.getDefault().post(new String("sss"));
                 }
                 else if(type=="5"){
-                    TextToVoice(takeCode+"号订丹座位信息已更改，请及时处理");
+                    TextToVoice(takeCode+"号订单座位信息已更改，请及时处理");
                     EventBus.getDefault().post(new String("sss"));
                 }
 

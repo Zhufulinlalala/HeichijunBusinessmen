@@ -20,6 +20,7 @@ import com.hk.lang_data_manager.base.BaseActivity;
 import com.hk.lang_data_manager.base.Constant;
 import com.hk.lang_data_manager.base.OKHttpUICallback;
 import com.hk.lang_data_manager.base.OkHttpManger;
+import com.hk.lang_data_manager.fragment.SumFragment;
 import com.hk.lang_data_manager.utils.MySharedPreference;
 import com.hk.lang_data_manager.utils.MyViewHolder;
 import com.hk.lang_data_manager.utils.PushPopup2Window;
@@ -125,9 +126,14 @@ public class TongActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_dayin:
-                if (popStyleIphoneDate==null){
-                    popStyleIphoneDate=new PopStyleIphoneDate(this);
+//                if (popStyleIphoneDate==null){
+//                    popStyleIphoneDate=new PopStyleIphoneDate(this);
+//                }
+                if (popStyleIphoneDate == null || !popStyleIphoneDate.isShowing()) {
+                    popStyleIphoneDate = new PopStyleIphoneDate(this);
+                    //    }
                 }
+
                 popStyleIphoneDate.show(this);
                 break;
             case R.id.tv_time: //判断  右上角 全部

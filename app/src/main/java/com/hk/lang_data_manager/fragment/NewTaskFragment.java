@@ -1,5 +1,6 @@
 package com.hk.lang_data_manager.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -244,8 +245,9 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
             public void onSuccess(AppBack appBack) {
                 if (appBack.isSuccess()) {
                     List<Map<String, Object>> items2 = appBack.getList();
-                    listItem2.clear();
-                    listItem2.addAll(items2);
+                    listItem.clear();
+                    listItem.addAll(items2);
+                    myAdpter.notifyDataSetChanged();
                     for (int i = 0; i < items2.size(); i++) {
                         if (items2.get(i).get("cookStatus").equals(0)) {
                             num++;
@@ -325,6 +327,7 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
             return holder;
         }
 
+        @SuppressLint("ClickableViewAccessibility")
         @Override
         public void onBindViewHolder(final MyViewHolder holder, final int position) {
             holder.setIsRecyclable(false);
@@ -572,61 +575,61 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
                         tvStatus.setBackgroundResource(R.color.gray3);
                         tvStatusRight.setVisibility(View.GONE);
                     }
-                    if (item.get("dadaStatus").equals("9")) {
+                    if (item.get("dadaStatus").equals(9)) {
                         tvStatus.setText("异常");
                         ivStatusBottom.setVisibility(View.GONE);
                         tvStatus.setBackgroundResource(R.color.red);
                         tvStatusRight.setVisibility(View.VISIBLE);
                         ivStatus.setBackgroundResource(R.mipmap.fhsp);
                         tvStatusRight.setText("! 妥投异常");
-                    } else if (item.get("dadaStatus").equals("10")) {
+                    } else if (item.get("dadaStatus").equals(10)) {
+
                         tvStatus.setText("异常");
                         ivStatusBottom.setVisibility(View.GONE);
                         tvStatus.setBackgroundResource(R.color.red);
                         tvStatusRight.setVisibility(View.VISIBLE);
                         ivStatus.setBackgroundResource(R.mipmap.callqishou);
                         tvStatusRight.setText("! 妥投异常");
-                    } else if (item.get("dadaStatus").equals("0")) {   //未呼叫达达:0
+                    } else if (item.get("dadaStatus").equals(0)) {
+                        //未呼叫达达:0
                         ivStatus.setBackgroundResource(R.mipmap.callqishou);
                         tvStatus.setText("已接单");
                         tvStatus.setBackgroundResource(R.color.green2);
                         tvStatusRight.setVisibility(View.GONE);
-                    } else if (item.get("dadaStatus").equals("1")) { //待接单＝1 待取货＝2 配送中＝3 已完成＝4 已取消＝5
+                    } else if (item.get("dadaStatus").equals(1)) { //待接单＝1 待取货＝2 配送中＝3 已完成＝4 已取消＝5
                         ivStatus.setBackgroundResource(R.mipmap.btn1);
                         ivStatus.setVisibility(View.GONE);
                         tvStatus.setText("呼叫中");
                         tvStatusRight.setVisibility(View.GONE);
                         tvStatus.setBackgroundResource(R.color.green2);
-                    } else if (item.get("dadaStatus").equals("2")) {
+                    } else if (item.get("dadaStatus").equals(2)) {
                         ivStatus.setBackgroundResource(R.mipmap.finish);
                         tvStatus.setText("骑手已接单");
                         ivStatus.setVisibility(View.GONE);
                         tvStatusRight.setVisibility(View.GONE);
                         tvStatus.setBackgroundResource(R.color.green2);
-                    } else if (item.get("dadaStatus").equals("3")) {
+                    } else if (item.get("dadaStatus").equals(3)) {
                         ivStatus.setBackgroundResource(R.mipmap.btn4);
                         tvStatus.setText("骑手已取货");
                         ivStatus.setVisibility(View.GONE);
                         tvStatusRight.setVisibility(View.GONE);
                         tvStatus.setBackgroundResource(R.color.green2);
-                    } else if (item.get("dadaStatus").equals("4")) {
+                    } else if (item.get("dadaStatus").equals(4)) {
                         ivStatus.setBackgroundResource(R.mipmap.finish2);
                         tvStatusRight.setText("");
                         tvStatus.setText("已完成");
                         tvStatus.setBackgroundResource(R.color.green2);
                         tvStatusRight.setVisibility(View.GONE);
-                    } else if (item.get("dadaStatus").equals("5")) {
+                    } else if (item.get("dadaStatus").equals(5)) {
                         ivStatus.setBackgroundResource(R.mipmap.callqishou);
                         tvStatus.setText("异常");
                         tvStatus.setBackgroundResource(R.color.red);
                         tvStatusRight.setVisibility(View.VISIBLE);
                         if (item.get("dadaCancelFrom").equals(1)) {// 1:达达配送员取消；
-                            tvStatus.setText("异常");
                             ivStatusBottom.setVisibility(View.GONE);
                             ivStatus.setBackgroundResource(R.mipmap.callqishou);
                             tvStatusRight.setText("! 骑手取消订单");
                         } else if (item.get("dadaCancelFrom").equals(3)) {
-                            tvStatus.setText("异常");
                             ivStatusBottom.setVisibility(View.GONE);
                             ivStatus.setBackgroundResource(R.mipmap.callqishou);
                             tvStatusRight.setText("! 客服取消订单");
@@ -753,12 +756,20 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
                                 catchOrder(item.get("id").toString(), holder.getAdapterPosition());
                             }
                         } else if (item.get("orderType").equals(4)) {   //外卖 点击
-                            if (item.get("cookStatus").equals(1)) {
-                                confirm(item.get("id").toString(), holder.getAdapterPosition());
-                            } else if (item.get("cookStatus").equals(3)) {
-                                confirm(item.get("id").toString(), holder.getAdapterPosition());
-                            } else if (item.get("cookStatus").equals(0)) {
+                            if (item.get("dadaStatus").equals(-1)){
                                 catchOrder(item.get("id").toString(), holder.getAdapterPosition());
+                            }
+                            if (item.get("dadaStatus").equals(9)){  //返回餐品  到时候会走明伟接口
+                                returnMeal(item.get("orderCode").toString(), holder.getAdapterPosition());
+
+                            }
+                            if (item.get("dadaStatus").equals(0)||item.get("dadaStatus").equals(10)||item.get("dadaStatus").equals(5)) { //已接单（有呼叫骑手 ）
+                                callqishou(item.get("id").toString(), holder.getAdapterPosition());
+                            }
+                            if (item.get("dadaStatus").equals(4)){
+                                myAdpter.notifyDataSetChanged();
+                                page = 1;
+                                loadData();
                             }
                         } else {
                             if (item.get("cookStatus").equals(2)) {
@@ -835,6 +846,46 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
             }
         }, parmsMap);
     }
+    //呼叫骑手
+    private void callqishou(String orderCard, final int position) {
+        /*{"action":null,"eMsg":"success","msg":"成功","result":null,"status":0}*/
+        Map<String, String> parmsMap = new HashMap<>();
+        parmsMap.put("adminId", MySharedPreference.getAdminId());
+        parmsMap.put("token", MySharedPreference.getToken());
+        parmsMap.put("id", orderCard);
+        OkHttpManger.getInstance().getAsync(Constant.URL + "order/callRider", new OKHttpUICallback.ResultCallback<AppBack>() {
+            @Override
+            public void onSuccess(AppBack appBack) {
+                if (appBack.isSuccess()) {
+//                  listItem.get(position).put("cookStatus", 2);
+                    myAdpter.notifyDataSetChanged();
+                    page = 1;
+                    loadData();
+                }
+            }
+        }, parmsMap);
+    }
+
+    //返还餐品
+    private void returnMeal(String orderCard, final int position) {
+        /*{"action":null,"eMsg":"success","msg":"成功","result":null,"status":0}*/
+        Map<String, String> parmsMap = new HashMap<>();
+        parmsMap.put("adminId", MySharedPreference.getAdminId());
+        parmsMap.put("token", MySharedPreference.getToken());
+        parmsMap.put("orderCode", orderCard);
+        OkHttpManger.getInstance().getAsync(Constant.URL + "order/returnMeal", new OKHttpUICallback.ResultCallback<AppBack>() {
+            @Override
+            public void onSuccess(AppBack appBack) {
+                if (appBack.isSuccess()) {
+//                  listItem.get(position).put("cookStatus", 2);
+                    myAdpter.notifyDataSetChanged();
+                    page = 1;
+                    loadData();
+                }
+            }
+        }, parmsMap);
+    }
+
 
     //接单
     private void catchOrder(String orderCard, final int position) {
@@ -847,8 +898,11 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
             public void onSuccess(AppBack appBack) {
                 if (appBack.isSuccess()) {
                     Loge(listItem.get(position));
-                    PrintOrderUtils.print(listItem.get(position));//打印某一订单
+                    ///PrintOrderUtils.print(listItem.get(position));//打印某一订单
                     listItem.get(position).put("cookStatus", 1);
+                    if (listItem.get(position).get("orderType").equals(3)){
+                        listItem.get(position).put("dadaStatus","0");
+                    }
                     myAdpter.notifyDataSetChanged();
 //                        handler.removeCallbacks(noticeRunnable);
                     page = 1;

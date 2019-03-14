@@ -135,8 +135,12 @@ public class SumFragment extends BaseFragement {
             public void onClick(View view) {
 //                Intent intent = new Intent(getContext(), DatePickerSelActivity.class);
 //                startActivityForResult(intent, 1);
-                if(popStyleIphoneDate==null){
-                    popStyleIphoneDate=new PopStyleIphoneDate(getActivity());
+//                if(popStyleIphoneDate==null){
+//                    popStyleIphoneDate=new PopStyleIphoneDate(getActivity());
+//                }
+                if (popStyleIphoneDate == null || !popStyleIphoneDate.isShowing()) {
+                    popStyleIphoneDate = new PopStyleIphoneDate(getActivity());
+                    //    }
                 }
                 popStyleIphoneDate.show(getActivity());
             }
@@ -413,8 +417,10 @@ public class SumFragment extends BaseFragement {
             TextView tvGetNum = (TextView) holder.getView(R.id.tv_get_num);
             TextView tvLocation = (TextView) holder.getView(R.id.tv_location);
             lvDetail = (RecyclerView) holder.getView(R.id.lv_detail);
+            TextView tvSeatChange = (TextView) holder.getView(R.id.tv_seat_change);
             rlZb = (RecyclerView) holder.getView(R.id.lv_detail_gift);
             ivStatus = (ImageView) holder.getView(R.id.iv_status);
+            TextView tvSeat = (TextView) holder.getView(R.id.tv_seat);
             TextView tvAllMoney = (TextView) holder.getView(R.id.tv_all_money);
             tvStatusDo = (TextView) holder.getView(R.id.tv_status_do);
             tvStatus = (TextView) holder.getView(R.id.tv_status);
@@ -566,6 +572,111 @@ public class SumFragment extends BaseFragement {
                     ivStatusBottom.setVisibility(View.GONE);
                     tvStatusRight.setVisibility(View.GONE);
                 }
+            }
+            else if (item.get("orderType").equals(4)) {  //外卖模式
+                // "dada_status" int(11) DEFAULT '0' COMMENT '达达状态   未呼叫达达:0待接单＝1 待取货＝2 配送中＝3 已完成＝4 已取消＝5 已过期＝7 指派单=8 妥投异常之物品返回中=9 妥投异常之物品返回完成=10',
+//                 "dada_cancel_reason" varchar(255) DEFAULT NULL COMMENT '达达取消原因',
+//                "dada_cancel_from" int(11) DEFAULT '0' COMMENT '达达取消来源1:达达配送员取消；2:商家主动取消；3:系统或客服取消；0:默认值',
+//                "dada_staff_id" varchar(32) DEFAULT NULL COMMENT '达达配送员员工',
+//               "dada_staff_name" varchar(20) DEFAULT NULL COMMENT '达达配送员姓名',
+                if (item.get("payType").equals(10)) {
+                    tv_vip.setVisibility(View.VISIBLE);  //红色 （vip）
+                }
+                llSeat.setVisibility(View.GONE);         //座位号
+                tvType.setText("取餐号：");// 取餐号
+                tvAllMoney.setText(notNullString("实付: ￥" + item.get("totalPrice")));//   实付 ：
+                llSerive.setVisibility(View.GONE);//  联系 方式 备注 那 一块
+                lvDetail.setVisibility(View.VISIBLE);//  商品 recyclerview
+                rlZb.setVisibility(View.VISIBLE);//   商品 recyclerview
+                tvAllMoney.setVisibility(View.VISIBLE);//
+                llbG.setBackgroundResource(R.drawable.bg_lanse_top);//  顶部 背景   蓝色  绿色 黄色
+                tvSeat.setVisibility(View.GONE);//  座位号
+                tvStatusDo.setText("外卖");//
+                ivld.setVisibility(View.VISIBLE);//  座位号 旁边的小铃铛
+                llNote.setVisibility(View.VISIBLE);//  真实 备注信息
+                tvNote2.setText(notNullString(item.get("remark")));// 真实 备注信息 内容
+                tvStatusDo.setTextColor(Color.parseColor("#1692ed"));//  外卖 字体颜色
+                ivStatusBottom.setVisibility(View.GONE);
+                if (item.get("status").equals(1)) { //已付款
+                    if (item.get("isChangeSeat").equals(1)) {   //是否变更
+                        tvSeatChange.setVisibility(View.VISIBLE);
+                    } else {
+                        tvSeatChange.setVisibility(View.GONE);
+                    }
+                    if (item.get("cookStatus").equals(0)) {  //尚未接单
+                        ivStatus.setBackgroundResource(R.mipmap.btn3);
+                        tvStatus.setText("未接单");
+                        tvStatus.setBackgroundResource(R.color.gray3);
+                        tvStatusRight.setVisibility(View.GONE);
+                    }
+                    if (item.get("dadaStatus").equals(9)) {
+                        tvStatus.setText("异常");
+                        ivStatusBottom.setVisibility(View.GONE);
+                        tvStatus.setBackgroundResource(R.color.red);
+                        tvStatusRight.setVisibility(View.VISIBLE);
+                        ivStatus.setBackgroundResource(R.mipmap.fhsp);
+                        tvStatusRight.setText("! 妥投异常");
+                    } else if (item.get("dadaStatus").equals(10)) {
+
+                        tvStatus.setText("异常");
+                        ivStatusBottom.setVisibility(View.GONE);
+                        tvStatus.setBackgroundResource(R.color.red);
+                        tvStatusRight.setVisibility(View.VISIBLE);
+                        ivStatus.setBackgroundResource(R.mipmap.callqishou);
+                        tvStatusRight.setText("! 妥投异常");
+                    } else if (item.get("dadaStatus").equals(0)) {
+                        //未呼叫达达:0
+                        ivStatus.setBackgroundResource(R.mipmap.callqishou);
+                        tvStatus.setText("已接单");
+                        tvStatus.setBackgroundResource(R.color.green2);
+                        tvStatusRight.setVisibility(View.GONE);
+                    } else if (item.get("dadaStatus").equals(1)) { //待接单＝1 待取货＝2 配送中＝3 已完成＝4 已取消＝5
+                        ivStatus.setBackgroundResource(R.mipmap.btn1);
+                        ivStatus.setVisibility(View.GONE);
+                        tvStatus.setText("呼叫中");
+                        tvStatusRight.setVisibility(View.GONE);
+                        tvStatus.setBackgroundResource(R.color.green2);
+                    } else if (item.get("dadaStatus").equals(2)) {
+                        ivStatus.setBackgroundResource(R.mipmap.finish);
+                        tvStatus.setText("骑手已接单");
+                        ivStatus.setVisibility(View.GONE);
+                        tvStatusRight.setVisibility(View.GONE);
+                        tvStatus.setBackgroundResource(R.color.green2);
+                    } else if (item.get("dadaStatus").equals(3)) {
+                        ivStatus.setBackgroundResource(R.mipmap.btn4);
+                        tvStatus.setText("骑手已取货");
+                        ivStatus.setVisibility(View.GONE);
+                        tvStatusRight.setVisibility(View.GONE);
+                        tvStatus.setBackgroundResource(R.color.green2);
+                    } else if (item.get("dadaStatus").equals(4)) {
+                        ivStatus.setBackgroundResource(R.mipmap.finish2);
+                        tvStatusRight.setText("");
+                        tvStatus.setText("已完成");
+                        tvStatus.setBackgroundResource(R.color.green2);
+                        tvStatusRight.setVisibility(View.GONE);
+                    } else if (item.get("dadaStatus").equals(5)) {
+                        ivStatus.setBackgroundResource(R.mipmap.callqishou);
+                        tvStatus.setText("异常");
+                        tvStatus.setBackgroundResource(R.color.red);
+                        tvStatusRight.setVisibility(View.VISIBLE);
+                        if (item.get("dadaCancelFrom").equals(1)) {// 1:达达配送员取消；
+                            ivStatusBottom.setVisibility(View.GONE);
+                            ivStatus.setBackgroundResource(R.mipmap.callqishou);
+                            tvStatusRight.setText("! 骑手取消订单");
+                        } else if (item.get("dadaCancelFrom").equals(3)) {
+                            ivStatusBottom.setVisibility(View.GONE);
+                            ivStatus.setBackgroundResource(R.mipmap.callqishou);
+                            tvStatusRight.setText("! 客服取消订单");
+                        }
+                    }
+
+                } else if (item.get("status").equals(-1)) {
+                    ivStatus.setBackgroundResource(R.mipmap.btn5);
+                    tvStatus.setText("已退款");
+                    tvStatus.setBackgroundResource(R.color.red);
+                    tvStatusRight.setVisibility(View.GONE);
+                }
+
             }
             else{
                 tvType.setText("服务号：");

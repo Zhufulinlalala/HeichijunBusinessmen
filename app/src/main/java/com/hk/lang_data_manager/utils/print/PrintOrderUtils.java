@@ -1,9 +1,12 @@
 package com.hk.lang_data_manager.utils.print;
 
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
 import com.hk.lang_data_manager.utils.DataFormatUtils;
 
+import java.io.Console;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +31,6 @@ public class PrintOrderUtils {
     //打印 浪 小票
     public static void print(Map<String,Object> orderMap)
     {
-        boolean needSend = (int) orderMap.get("orderType") == 2;
         //对齐模式  0--居左 , 1--居中, 2--居右
 
         AidlUtil.getInstance().printMyText(notNullString(orderMap.get("cinemaName")), 22, false, 1,1);
@@ -45,6 +47,10 @@ public class PrintOrderUtils {
         else if(orderMap.get("orderType").equals(1))//自提
         {
             AidlUtil.getInstance().printMyText("自助取餐 : " +notNullString(orderMap.get("takeCode")), 38, false, 1,1);
+        }
+        else if(orderMap.get("orderType").equals(4))//外卖
+        {
+            AidlUtil.getInstance().printMyText("外卖订单 : " +notNullString(orderMap.get("takeCode")), 38, false, 1,1);
         }
         else{
             AidlUtil.getInstance().printMyText("影院服务：" + notNullString(orderMap.get("takeCode")), 38, false,
@@ -83,6 +89,15 @@ public class PrintOrderUtils {
                 0, 0);
         AidlUtil.getInstance().printMyText(notNullString(orderMap.get("remark")), 30, false,
                 0, 1);
+        AidlUtil.getInstance().printMyText("--------------------------------", 24, false,
+                1, 1);
+        if(orderMap.get("orderType").equals(4))//外卖
+        {
+            AidlUtil.getInstance().printMyText("运单号 : " +notNullString(orderMap.get("dadaWaybillCode")), 38, false, 0,1);
+            AidlUtil.getInstance().printMyText("收货人 : " +notNullString(orderMap.get("dadaAddressUserName")), 38, false, 0,1);
+            AidlUtil.getInstance().printMyText("联系方式 : " +notNullString(orderMap.get("dadaAddressPhone").toString().replaceAll("(\\d{3})\\d{4}(\\d)","$1****$2")), 38, false, 0,1);
+            AidlUtil.getInstance().printMyText("收货地址 : " +notNullString(orderMap.get("dadaTakeawayAddress")), 38, false, 0,1);
+        }
         AidlUtil.getInstance().printMyText("--------------------------------", 24, false,
                 1, 1);
          if (!orderMap.get("orderType").equals(3)){

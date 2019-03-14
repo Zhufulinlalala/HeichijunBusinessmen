@@ -681,6 +681,9 @@ public class OrderFragment extends BaseActivity {
             @Override
             public void onSuccess(AppBack appBack) {
                 if (appBack.isSuccess()) {
+                    if (orderMap.size() > 0) {
+                        PrintOrderUtils.print(orderMap);
+                    }
                     EventBus.getDefault().post(new String("catch"));
                     inist();
                 }
@@ -699,7 +702,9 @@ public class OrderFragment extends BaseActivity {
             public void onSuccess(AppBack appBack) {
                 if (appBack.isSuccess()) {
                     if (orderMap.size() > 0) {
-                        //PrintOrderUtils.print(orderMap);
+                        if (!"4".equals(orderMap.get("orderType").toString())) {
+                            PrintOrderUtils.print(orderMap);
+                        }
                         EventBus.getDefault().post(new String("catch"));
                         inist();
                     }

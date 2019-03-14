@@ -7,7 +7,7 @@ package woyou.aidlservice.jiuiv5;
 
 import woyou.aidlservice.jiuiv5.ICallback;
 import android.graphics.Bitmap;
-import com.hk.lang_data_manager.trans.TransBean;
+import com.hk.heichijun.trans.TransBean;
 
 interface IWoyouService
 {

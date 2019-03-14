@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -681,6 +682,7 @@ public class OrderFragment extends BaseActivity {
             @Override
             public void onSuccess(AppBack appBack) {
                 if (appBack.isSuccess()) {
+                    Log.i("orderMap长度",JSON.toJSONString(orderMap));
                     if (orderMap.size() > 0) {
                         PrintOrderUtils.print(orderMap);
                     }

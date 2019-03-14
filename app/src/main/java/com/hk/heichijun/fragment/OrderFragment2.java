@@ -254,8 +254,8 @@ public class OrderFragment2 extends BaseActivity {
                             orderdetialAddressTv.setText("收货地址");
                             dadadeliverynoLin.setVisibility(View.VISIBLE);
                             qishounamephoneLin.setVisibility(View.VISIBLE);
-                            qishounamephoneTv.setText(item.get("dadaStaffName") + "/" + item.get("dadaStaffPhone"));
-                            dadadeliverynoTv.setText(item.get("dadaWaybillCode") + "");
+                            qishounamephoneTv.setText(item.get("dadaStaffName")==null?"暂无":item.get("dadaStaffName") +""+ "/" + item.get("dadaStaffPhone")==null?"暂无":item.get("dadaStaffPhone")+"");
+                            dadadeliverynoTv.setText(item.get("dadaWaybillCode")==null?"暂无":item.get("dadaWaybillCode") + "");
                             tvLocationNum.setText(notNullString(item.get("dadaTakeawayAddress")));
                             llSong.setVisibility(View.VISIBLE);
                             tvSongMoney.setText("￥" + item.get("freight"));
@@ -323,7 +323,7 @@ public class OrderFragment2 extends BaseActivity {
                                 tvFinish.setText("完成");
                                 tvError.setVisibility(View.GONE);
                                 tvStatus.setBackgroundResource(R.color.green2);
-                                tvFinish.setVisibility(View.VISIBLE);
+                                tvFinish.setVisibility(View.GONE);
                             } else if (item.get("dadaStatus").equals(5)) {
                                 tvStatus.setText("异常");
                                 tvStatus.setBackgroundResource(R.color.red);
@@ -374,7 +374,33 @@ public class OrderFragment2 extends BaseActivity {
                             } else {
                                 llPostFree.setVisibility(View.GONE);
                             }
-                        } else {
+                        }
+                        else if (item.get("orderType").equals(4)) { //外卖
+                            orderdetialAddressTv.setText("收货地址");
+                            dadadeliverynoLin.setVisibility(View.VISIBLE);
+                            qishounamephoneLin.setVisibility(View.VISIBLE);
+                            qishounamephoneTv.setText(item.get("dadaStaffName")==null?"暂无":item.get("dadaStaffName") +""+ "/" + item.get("dadaStaffPhone")==null?"暂无":item.get("dadaStaffPhone")+"");
+                            dadadeliverynoTv.setText(item.get("dadaWaybillCode")==null?"暂无":item.get("dadaWaybillCode") + "");
+                            tvLocationNum.setText(notNullString(item.get("dadaTakeawayAddress")));
+                            llSong.setVisibility(View.VISIBLE);
+                            tvSongMoney.setText("￥" + item.get("freight"));
+                            ivStatusBottom.setVisibility(View.GONE);
+                            tvReturnMoney.setVisibility(View.GONE);
+                            tvGoodsMiss.setVisibility(View.GONE);
+                            if (item.get("isChangeSeat").equals(1)) {
+                                tvError.setVisibility(View.VISIBLE);
+                                tvError.setText("(已变更)");
+                            } else {
+                                tvError.setVisibility(View.GONE);
+                            }
+                            if (item.get("freightFree").equals(1)) {
+                                llPostFree.setVisibility(View.VISIBLE);
+                                tvPostFree.setText("-￥" + item.get("freight"));
+                            } else {
+                                llPostFree.setVisibility(View.GONE);
+                            }
+                        }
+                        else {
                             llPeoplePhone.setVisibility(View.GONE);
                             llPeopleSeat.setVisibility(View.GONE);
                         }

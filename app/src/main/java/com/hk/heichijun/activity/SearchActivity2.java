@@ -185,6 +185,7 @@ public class SearchActivity2 extends BaseActivity {
             TextView tvThing1 = (TextView) holder.getView(R.id.tv_thing1);
             TextView tvPhone = (TextView) holder.getView(R.id.tv_phone);
             TextView tvNote = (TextView) holder.getView(R.id.tv_note);
+            TextView tv_vip = (TextView) holder.getView(R.id.tv_vip);
             ImageView ivld= (ImageView) holder.getView(R.id.iv_lingdang);
             LinearLayout llNote = (LinearLayout) holder.getView(R.id.ll_note);
             TextView tvNote2 = (TextView) holder.getView(R.id.tv_note2);
@@ -347,6 +348,111 @@ public class SearchActivity2 extends BaseActivity {
                     tvStatusRight.setVisibility(View.GONE);
                 }
             }
+            else if (item.get("orderType").equals(4)) {  //外卖模式
+                // "dada_status" int(11) DEFAULT '0' COMMENT '达达状态   未呼叫达达:0待接单＝1 待取货＝2 配送中＝3 已完成＝4 已取消＝5 已过期＝7 指派单=8 妥投异常之物品返回中=9 妥投异常之物品返回完成=10',
+//                 "dada_cancel_reason" varchar(255) DEFAULT NULL COMMENT '达达取消原因',
+//                "dada_cancel_from" int(11) DEFAULT '0' COMMENT '达达取消来源1:达达配送员取消；2:商家主动取消；3:系统或客服取消；0:默认值',
+//                "dada_staff_id" varchar(32) DEFAULT NULL COMMENT '达达配送员员工',
+//               "dada_staff_name" varchar(20) DEFAULT NULL COMMENT '达达配送员姓名',
+                if (item.get("payType").equals(10)) {
+                    tv_vip.setVisibility(View.VISIBLE);  //红色 （vip）
+                }
+                llSeat.setVisibility(View.GONE);         //座位号
+                tvType.setText("取餐号：");// 取餐号
+                tvAllMoney.setText(notNullString("实付: ￥" + item.get("totalPrice")));//   实付 ：
+                llSerive.setVisibility(View.GONE);//  联系 方式 备注 那 一块
+                lvDetail.setVisibility(View.VISIBLE);//  商品 recyclerview
+                rlZb.setVisibility(View.VISIBLE);//   商品 recyclerview
+                tvAllMoney.setVisibility(View.VISIBLE);//
+                llbG.setBackgroundResource(R.drawable.bg_lanse_top);//  顶部 背景   蓝色  绿色 黄色
+                tvSeat.setVisibility(View.GONE);//  座位号
+                tvStatusDo.setText("外卖");//
+                ivld.setVisibility(View.VISIBLE);//  座位号 旁边的小铃铛
+                llNote.setVisibility(View.VISIBLE);//  真实 备注信息
+                tvNote2.setText(notNullString(item.get("remark")));// 真实 备注信息 内容
+                tvStatusDo.setTextColor(Color.parseColor("#1692ed"));//  外卖 字体颜色
+                ivStatusBottom.setVisibility(View.GONE);
+                if (item.get("status").equals(1)) { //已付款
+                    if (item.get("isChangeSeat").equals(1)) {   //是否变更
+                        tvSeatChange.setVisibility(View.VISIBLE);
+                    } else {
+                        tvSeatChange.setVisibility(View.GONE);
+                    }
+                    if (item.get("cookStatus").equals(0)) {  //尚未接单
+                        ivStatus.setBackgroundResource(R.mipmap.btn3);
+                        tvStatus.setText("未接单");
+                        tvStatus.setBackgroundResource(R.color.gray3);
+                        tvStatusRight.setVisibility(View.GONE);
+                    }
+                    if (item.get("dadaStatus").equals(9)) {
+                        tvStatus.setText("异常");
+                        ivStatusBottom.setVisibility(View.GONE);
+                        tvStatus.setBackgroundResource(R.color.red);
+                        tvStatusRight.setVisibility(View.VISIBLE);
+                        ivStatus.setBackgroundResource(R.mipmap.fhsp);
+                        tvStatusRight.setText("! 妥投异常");
+                    } else if (item.get("dadaStatus").equals(10)) {
+
+                        tvStatus.setText("异常");
+                        ivStatusBottom.setVisibility(View.GONE);
+                        tvStatus.setBackgroundResource(R.color.red);
+                        tvStatusRight.setVisibility(View.VISIBLE);
+                        ivStatus.setBackgroundResource(R.mipmap.callqishou);
+                        tvStatusRight.setText("! 妥投异常");
+                    } else if (item.get("dadaStatus").equals(0)) {
+                        //未呼叫达达:0
+                        ivStatus.setBackgroundResource(R.mipmap.callqishou);
+                        tvStatus.setText("已接单");
+                        tvStatus.setBackgroundResource(R.color.green2);
+                        tvStatusRight.setVisibility(View.GONE);
+                    } else if (item.get("dadaStatus").equals(1)) { //待接单＝1 待取货＝2 配送中＝3 已完成＝4 已取消＝5
+                        ivStatus.setBackgroundResource(R.mipmap.btn1);
+                        ivStatus.setVisibility(View.GONE);
+                        tvStatus.setText("呼叫中");
+                        tvStatusRight.setVisibility(View.GONE);
+                        tvStatus.setBackgroundResource(R.color.green2);
+                    } else if (item.get("dadaStatus").equals(2)) {
+                        ivStatus.setBackgroundResource(R.mipmap.finish);
+                        tvStatus.setText("骑手已接单");
+                        ivStatus.setVisibility(View.GONE);
+                        tvStatusRight.setVisibility(View.GONE);
+                        tvStatus.setBackgroundResource(R.color.green2);
+                    } else if (item.get("dadaStatus").equals(3)) {
+                        ivStatus.setBackgroundResource(R.mipmap.btn4);
+                        tvStatus.setText("骑手已取货");
+                        ivStatus.setVisibility(View.GONE);
+                        tvStatusRight.setVisibility(View.GONE);
+                        tvStatus.setBackgroundResource(R.color.green2);
+                    } else if (item.get("dadaStatus").equals(4)) {
+                        ivStatus.setBackgroundResource(R.mipmap.finish2);
+                        tvStatusRight.setText("");
+                        tvStatus.setText("已完成");
+                        tvStatus.setBackgroundResource(R.color.green2);
+                        tvStatusRight.setVisibility(View.GONE);
+                    } else if (item.get("dadaStatus").equals(5)) {
+                        ivStatus.setBackgroundResource(R.mipmap.callqishou);
+                        tvStatus.setText("异常");
+                        tvStatus.setBackgroundResource(R.color.red);
+                        tvStatusRight.setVisibility(View.VISIBLE);
+                        if (item.get("dadaCancelFrom").equals(1)) {// 1:达达配送员取消；
+                            ivStatusBottom.setVisibility(View.GONE);
+                            ivStatus.setBackgroundResource(R.mipmap.callqishou);
+                            tvStatusRight.setText("! 骑手取消订单");
+                        } else if (item.get("dadaCancelFrom").equals(3)) {
+                            ivStatusBottom.setVisibility(View.GONE);
+                            ivStatus.setBackgroundResource(R.mipmap.callqishou);
+                            tvStatusRight.setText("! 客服取消订单");
+                        }
+                    }
+
+                } else if (item.get("status").equals(-1)) {
+                    ivStatus.setBackgroundResource(R.mipmap.btn5);
+                    tvStatus.setText("已退款");
+                    tvStatus.setBackgroundResource(R.color.red);
+                    tvStatusRight.setVisibility(View.GONE);
+                }
+
+            }
             else{
             tvType.setText("服务号：");
             llSerive.setVisibility(View.VISIBLE);
@@ -464,6 +570,23 @@ public class SearchActivity2 extends BaseActivity {
                                 catchOrder(item.get("id").toString(), holder.getAdapterPosition());
                             }
                         }
+                        else if (item.get("orderType").equals(4)) {   //外卖 点击
+                            if (item.get("dadaStatus").equals(-1)){
+                                catchOrder(item.get("id").toString(), holder.getAdapterPosition());
+                            }
+                            if (item.get("dadaStatus").equals(9)){  //返回餐品  到时候会走明伟接口
+                                returnMeal(item.get("orderCode").toString(), holder.getAdapterPosition());
+
+                            }
+                            if (item.get("dadaStatus").equals(0)||item.get("dadaStatus").equals(10)||item.get("dadaStatus").equals(5)) { //已接单（有呼叫骑手 ）
+                                callqishou(item.get("id").toString(), holder.getAdapterPosition());
+                            }
+                            if (item.get("dadaStatus").equals(4)){
+                                myAdapter.notifyDataSetChanged();
+                                page = 1;
+                                loadData(etSearch.getText().toString());
+                            }
+                        }
                         else{
                             if (item.get("cookStatus").equals(2)) {
                                 Update(item.get("id").toString(), holder.getAdapterPosition(),"3");
@@ -483,6 +606,25 @@ public class SearchActivity2 extends BaseActivity {
                             .putExtra("map",item.toString()));//订单整个model
                 }
             });
+        }
+        //呼叫骑手
+        private void callqishou(String orderCard, final int position) {
+        /*{"action":null,"eMsg":"success","msg":"成功","result":null,"status":0}*/
+            Map<String, String> parmsMap = new HashMap<>();
+            parmsMap.put("adminId", MySharedPreference.getAdminId());
+            parmsMap.put("token", MySharedPreference.getToken());
+            parmsMap.put("id", orderCard);
+            OkHttpManger.getInstance().getAsync(Constant.URL + "order/callRider", new OKHttpUICallback.ResultCallback<AppBack>() {
+                @Override
+                public void onSuccess(AppBack appBack) {
+                    if (appBack.isSuccess()) {
+//                  listItem.get(position).put("cookStatus", 2);
+                        myAdapter.notifyDataSetChanged();
+                        page = 1;
+                        loadData(etSearch.getText().toString());
+                    }
+                }
+            }, parmsMap);
         }
 
         //确定收货
@@ -537,6 +679,28 @@ public class SearchActivity2 extends BaseActivity {
                 }
             }, parmsMap);
         }
+
+        //返还餐品
+        private void returnMeal(String orderCard, final int position) {
+        /*{"action":null,"eMsg":"success","msg":"成功","result":null,"status":0}*/
+            Map<String, String> parmsMap = new HashMap<>();
+            parmsMap.put("adminId", MySharedPreference.getAdminId());
+            parmsMap.put("token", MySharedPreference.getToken());
+            parmsMap.put("orderCode", orderCard);
+            OkHttpManger.getInstance().getAsync(Constant.URL + "order/returnMeal", new OKHttpUICallback.ResultCallback<AppBack>() {
+                @Override
+                public void onSuccess(AppBack appBack) {
+                    if (appBack.isSuccess()) {
+//                  listItem.get(position).put("cookStatus", 2);
+                        myAdapter.notifyDataSetChanged();
+                        page = 1;
+                        loadData(etSearch.getText().toString());
+                    }
+                }
+            }, parmsMap);
+        }
+
+
         //服务号接单
         private void Update(String orderCard, final int position, final String orderType) {
             Map<String, String> parmsMap = new HashMap<>();

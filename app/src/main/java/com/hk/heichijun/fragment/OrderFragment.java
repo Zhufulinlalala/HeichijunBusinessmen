@@ -311,7 +311,7 @@ public class OrderFragment extends BaseActivity {
                             orderdetialAddressTv.setText("收货地址");
                             dadadeliverynoLin.setVisibility(View.VISIBLE);
                             qishounamephoneLin.setVisibility(View.VISIBLE);
-                            qishounamephoneTv.setText(item.get("dadaStaffName")==null?"暂无":item.get("dadaStaffName") + "/" + item.get("dadaStaffPhone")==null?"暂无":item.get("dadaStaffPhone")+"");
+                            qishounamephoneTv.setText(item.get("dadaStaffName")==null?"暂无":item.get("dadaStaffName") +""+ "/" + item.get("dadaStaffPhone")==null?"暂无":item.get("dadaStaffPhone")+"");
                             dadadeliverynoTv.setText(item.get("dadaWaybillCode")==null?"暂无":item.get("dadaWaybillCode") + "");
                             tvLocationNum.setText(notNullString(item.get("dadaTakeawayAddress")));
                             llSong.setVisibility(View.VISIBLE);
@@ -380,7 +380,7 @@ public class OrderFragment extends BaseActivity {
                                 tvFinish.setText("完成");
                                 tvError.setVisibility(View.GONE);
                                 tvStatus.setBackgroundResource(R.color.green2);
-                                tvFinish.setVisibility(View.VISIBLE);
+                                tvFinish.setVisibility(View.GONE);
                             } else if (item.get("dadaStatus").equals(5)) {
                                 tvStatus.setText("异常");
                                 tvStatus.setBackgroundResource(R.color.red);

@@ -655,6 +655,9 @@ public class SearchActivity2 extends BaseActivity {
                 public void onSuccess(AppBack appBack) {
                     if (appBack.isSuccess()) {
                         items.get(position).put("cookStatus", 1);
+                        if (items.get(position).get("orderType").equals(3)){
+                            items.get(position).put("dadaStatus","0");
+                        }
                         PrintOrderUtils.print(items.get(position));//打印某一订单
                         myAdapter.notifyDataSetChanged();
                         loadData(etSearch.getText().toString());

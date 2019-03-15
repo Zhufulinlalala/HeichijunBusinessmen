@@ -197,7 +197,7 @@
             android:value="developer-default" />
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="fcf2815781bafbf9095b72d2" />
+            android:value="31bd4fad089abc2a014fbf67" />
 
         <activity android:name="com.hk.heichijun.fragment.OrderFragment" />
         <activity android:name="com.hk.heichijun.fragment.OrderFragment2" />
@@ -231,5 +231,5 @@
         <!--<activity android:name=".activity.DatePickerSelActivity" />-->
         <activity android:name="com.hk.heichijun.activity.TongActivity"></activity>
     </application>
-
+F
 </manifest>

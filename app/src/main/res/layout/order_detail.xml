@@ -344,6 +344,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="备注"
+                        android:gravity="top"
+                        android:layout_gravity="top"
                         android:textSize="@dimen/m13" />
                 </LinearLayout>
 
@@ -355,6 +357,7 @@
                     android:gravity="center_vertical|right">
 
                     <TextView
+                        android:text=""
                         android:id="@+id/tv_order_thing"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -388,6 +391,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="收货人"
+                            android:gravity="top"
+                            android:layout_gravity="top"
                             android:textSize="@dimen/m13" />
                     </LinearLayout>
 

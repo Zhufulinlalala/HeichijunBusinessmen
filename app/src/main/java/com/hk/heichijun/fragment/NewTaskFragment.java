@@ -847,6 +847,7 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
             @Override
             public void onSuccess(AppBack appBack) {
                 if (appBack.isSuccess()) {
+                    PrintOrderUtils.print(listItem.get(position));
 //                  listItem.get(position).put("cookStatus", 2);
                     myAdpter.notifyDataSetChanged();
                     page = 1;
@@ -888,7 +889,9 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
             public void onSuccess(AppBack appBack) {
                 if (appBack.isSuccess()) {
                     Loge(listItem.get(position));
-                    ///PrintOrderUtils.print(listItem.get(position));//打印某一订单
+                    if (!listItem.get(position).get("orderType").equals(4)){
+                        PrintOrderUtils.print(listItem.get(position));//打印某一订单
+                    }
                     listItem.get(position).put("cookStatus", 1);
                     if (listItem.get(position).get("orderType").equals(3)){
                         listItem.get(position).put("dadaStatus","0");

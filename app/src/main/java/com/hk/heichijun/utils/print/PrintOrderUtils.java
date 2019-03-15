@@ -94,7 +94,7 @@ public class PrintOrderUtils {
                 1, 1);
         if(orderMap.get("orderType").equals(4))//外卖
         {
-            AidlUtil.getInstance().printMyText("运单号 : " +notNullString(orderMap.get("dadaWaybillCode")), 38, false, 0,1);
+            // AidlUtil.getInstance().printMyText("运单号 : " +notNullString(orderMap.get("dadaWaybillCode")), 38, false, 0,1);
             AidlUtil.getInstance().printMyText("收货人 : " +notNullString(orderMap.get("dadaAddressUserName")), 38, false, 0,1);
             AidlUtil.getInstance().printMyText("联系方式 : " +notNullString(orderMap.get("dadaAddressPhone").toString().replaceAll("(\\d{3})\\d{4}(\\d)","$1****$2")), 38, false, 0,1);
             AidlUtil.getInstance().printMyText("收货地址 : " +notNullString(orderMap.get("dadaTakeawayAddress")), 38, false, 0,1);

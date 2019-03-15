@@ -92,6 +92,9 @@ public class MyReceiver extends BroadcastReceiver {
                 else if(type=="5"){
                     TextToVoice(takeCode+"号订单座位信息已更改，请及时处理");
                     EventBus.getDefault().post(new String("sss"));
+                }else if(type=="8"){
+                    TextToVoice(takeCode+"订单异常，请及时处理");
+                    EventBus.getDefault().post(new String("sss"));
                 }
 
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {

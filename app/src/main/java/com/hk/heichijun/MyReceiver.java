@@ -44,7 +44,7 @@ public class MyReceiver extends BroadcastReceiver {
         SpeechSynthesizer mTts = SpeechSynthesizer.createSynthesizer(SaflyApplication.getInstance(), null);
         //2.合成参数设置，详见《科大讯飞MSC API手册(Android)》SpeechSynthesizer 类
         mTts.setParameter(SpeechConstant.VOICE_NAME, "xiaoyan");//设置发音人
-        mTts.setParameter(SpeechConstant.SPEED, "50");//设置语速
+        mTts.setParameter(SpeechConstant.SPEED, "40");//设置语速
         mTts.setParameter(SpeechConstant.VOLUME, "50");//设置音量，范围0~100
         mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD); //设置云端,这些功能用到讯飞服务器,所以要有网络.
         mTts.startSpeaking(text, null);

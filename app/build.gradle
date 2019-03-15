@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.hk.heichijun"
         minSdkVersion 16
@@ -47,66 +47,66 @@ repositories {
 
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     //support版本必须统一
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:recyclerview-v7:26.1.0'
-    compile 'com.android.support:design:26.1.0'
-    testCompile 'junit:junit:4.12'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    testImplementation 'junit:junit:4.12'
     //黄油刀
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     //黄油刀
-    compile 'com.jakewharton:butterknife:8.8.1'
+    implementation 'com.jakewharton:butterknife:8.8.1'
     //状态栏调色
-    compile 'com.githang:status-bar-compat:0.5.2'
+    implementation 'com.githang:status-bar-compat:0.5.2'
     //滑动返回
-    compile 'me.imid.swipebacklayout.lib:library:1.0.0'
+    implementation 'me.imid.swipebacklayout.lib:library:1.0.0'
     //Rxpermissions和Rxjava2
-    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.1'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'jp.wasabeef:glide-transformations:2.0.1'
+    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.1'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'jp.wasabeef:glide-transformations:2.0.1'
     //短信内容截取
-    compile 'com.github.stfalcon:smsverifycatcher:0.3.1'
+    implementation 'com.github.stfalcon:smsverifycatcher:0.3.1'
     //事件总线
-    compile 'org.greenrobot:eventbus:3.0.0'
-    compile 'com.squareup.okhttp3:okhttp:3.8.1'
-    compile 'com.alibaba:fastjson:1.1.34.android'
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.8.1'
+    implementation 'com.alibaba:fastjson:1.1.34.android'
     //腾讯bug
-    compile 'com.tencent.bugly:crashreport:2.6.6.1'
+    implementation 'com.tencent.bugly:crashreport:2.6.6.1'
     //左滑删除
-    compile 'com.yanzhenjie:recyclerview-swipe:1.0.4'
+    implementation 'com.yanzhenjie:recyclerview-swipe:1.0.4'
     //滚轮选择
-    compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
+    implementation 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
     //轮播图
-    compile 'com.youth.banner:banner:1.4.9'
+    implementation 'com.youth.banner:banner:1.4.9'
     //switchButtom
-    compile 'com.kyleduo.switchbutton:library:2.0.0'
-    compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile 'com.bm.photoview:library:1.4.1'
+    implementation 'com.kyleduo.switchbutton:library:2.0.0'
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'com.bm.photoview:library:1.4.1'
     //排版良好的网页浏览器
-    compile 'com.just.agentweb:agentweb:2.0.1'
+    implementation 'com.just.agentweb:agentweb:2.0.1'
     //日期选择
-    compile 'com.borax12.materialdaterangepicker:library:1.9'
+    implementation 'com.borax12.materialdaterangepicker:library:1.9'
     //强大日期选择
-    compile 'com.tubb.calendarselector.library:calendar-selector:0.1.3'
-    compile 'com.zhy:autolayout:1.4.3'
-    compile files('libs/volley.jar')
+    implementation 'com.tubb.calendarselector.library:calendar-selector:0.1.3'
+    implementation 'com.zhy:autolayout:1.4.3'
+    implementation files('libs/volley.jar')
     implementation 'com.foamtrace:photopicker:1.0'
-    compile 'com.github.limxing:Android-PromptDialog:1.1.3'
-    compile 'com.kyleduo.switchbutton:library:2.0.0'
-    compile 'com.android.support:multidex:1.0.2'
+    implementation 'com.github.limxing:Android-PromptDialog:1.1.3'
+    implementation 'com.kyleduo.switchbutton:library:2.0.0'
+    implementation 'com.android.support:multidex:1.0.2'
     implementation files('libs/Msc.jar')
-    compile 'cn.jiguang.sdk:jpush:3.1.1'
+    implementation 'cn.jiguang.sdk:jpush:3.1.1'
     // 此处以JPush 3.0.5 版本为例。
-    compile 'cn.jiguang.sdk:jcore:1.1.9'
+    implementation 'cn.jiguang.sdk:jcore:1.1.9'
     // 此处以JCore 1.1.2 版本为例。
     //zxing 打印用
     //阿里热修复
-    compile 'com.aliyun.ams:alicloud-android-hotfix:3.2.4'
-    compile files('libs/core-3.3.0.jar')
+    implementation 'com.aliyun.ams:alicloud-android-hotfix:3.2.4'
+    implementation files('libs/core-3.3.0.jar')
 }

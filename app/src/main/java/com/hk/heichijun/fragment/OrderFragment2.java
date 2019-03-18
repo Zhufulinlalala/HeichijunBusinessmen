@@ -169,9 +169,9 @@ public class OrderFragment2 extends BaseActivity {
                     tvPhoneNum.setText(notNullString(item.get("phone")));
                     tvLocationNum.setText(notNullString(item.get("seat")));
                     tvOrderNum.setText(notNullString(item.get("orderCode")));
-                    if (item.get("type").equals("weChat")){
+                    if (item.get("type").equals("weChat")) {
                         tvPay.setText("微信支付");
-                    }else if (item.get("type").equals("aliPay")){
+                    } else if (item.get("type").equals("aliPay")) {
                         tvPay.setText("支付宝支付");
                     }
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -249,13 +249,22 @@ public class OrderFragment2 extends BaseActivity {
                                 tvStatus.setBackgroundResource(R.color.red);
                                 tvReturnMoney.setVisibility(View.VISIBLE);
                             }
-                        }
-                        else if (item.get("orderType").equals(4)) { //外卖
+                        } else if (item.get("orderType").equals(4)) { //外卖
                             orderdetialAddressTv.setText("收货地址");
                             dadadeliverynoLin.setVisibility(View.VISIBLE);
                             qishounamephoneLin.setVisibility(View.VISIBLE);
-                            qishounamephoneTv.setText((item.get("dadaStaffName")==null||"".equals(item.get("dadaStaffName"))?"暂无":item.get("dadaStaffName") +"")+ "/" + (item.get("dadaStaffPhone")==null||"".equals(item.get("dadaStaffPhone"))?"暂无":item.get("dadaStaffPhone")+""));
-                            dadadeliverynoTv.setText(item.get("dadaWaybillCode")==null||"".equals(item.get("dadaWaybillCode"))?"暂无":item.get("dadaWaybillCode") + "");
+
+                            if ((item.get("dadaStaffName") != null && !"".equals(item.get("dadaStaffName"))) || ((item.get("dadaStaffPhone") != null && !"".equals(item.get("dadaStaffPhone"))))) {
+                                qishounamephoneTv.setText((item.get("dadaStaffName") != null && !"".equals(item.get("dadaStaffName")) ? item.get("dadaStaffName") + "":"暂无" ) + "/" + (item.get("dadaStaffPhone") != null && !"".equals(item.get("dadaStaffPhone")) ? item.get("dadaStaffPhone") + "":"暂无"  ));
+                            } else {
+                                qishounamephoneLin.setVisibility(View.GONE);
+                            }
+                            if (item.get("dadaWaybillCode") != null && !"".equals(item.get("dadaWaybillCode"))) {
+                                dadadeliverynoTv.setText(item.get("dadaWaybillCode") + "");
+                            } else {
+                                dadadeliverynoLin.setVisibility(View.GONE);
+                            }
+
                             tvLocationNum.setText(notNullString(item.get("dadaTakeawayAddress")));
                             llSong.setVisibility(View.VISIBLE);
                             tvSongMoney.setText("￥" + item.get("freight"));
@@ -281,6 +290,13 @@ public class OrderFragment2 extends BaseActivity {
                                 tvError.setVisibility(View.GONE);
                                 tvFinish.setText("接单");
                                 tvStatus.setBackgroundResource(R.color.gray3);
+                            } else if (item.get("dadaStatus").equals(7)) { //已过期订单
+                                tvStatus.setText("异常");
+                                tvStatus.setBackgroundResource(R.color.red);
+                                tvFinish.setVisibility(View.VISIBLE);
+                                tvFinish.setText("呼叫骑手");
+                                tvError.setVisibility(View.VISIBLE);
+                                tvError.setText("! 呼叫超时");
                             } else if (item.get("dadaStatus").equals(9)) {
                                 tvStatus.setText("异常");
                                 tvStatus.setBackgroundResource(R.color.red);
@@ -293,7 +309,7 @@ public class OrderFragment2 extends BaseActivity {
                                 tvStatus.setText("异常");
                                 tvStatus.setBackgroundResource(R.color.red);
                                 tvFinish.setVisibility(View.VISIBLE);
-                                tvFinish.setText("返还餐品");
+                                tvFinish.setText("呼叫骑手");
                                 tvError.setVisibility(View.VISIBLE);
                                 tvError.setText("! 妥投异常");
                             } else if (item.get("dadaStatus").equals(0)) {
@@ -338,8 +354,7 @@ public class OrderFragment2 extends BaseActivity {
                                     tvError.setText("! 客服取消订单");
                                 }
                             }
-                        }
-                        else {
+                        } else {
                             llPostFree.setVisibility(View.GONE);
                             llSong.setVisibility(View.GONE);
                             llPeoplePhone.setVisibility(View.GONE);
@@ -375,13 +390,24 @@ public class OrderFragment2 extends BaseActivity {
                             } else {
                                 llPostFree.setVisibility(View.GONE);
                             }
-                        }
-                        else if (item.get("orderType").equals(4)) { //外卖
+                        } else if (item.get("orderType").equals(4)) { //外卖
                             orderdetialAddressTv.setText("收货地址");
                             dadadeliverynoLin.setVisibility(View.VISIBLE);
                             qishounamephoneLin.setVisibility(View.VISIBLE);
-                            qishounamephoneTv.setText((item.get("dadaStaffName")==null||"".equals(item.get("dadaStaffName"))?"暂无":item.get("dadaStaffName") +"")+ "/" + (item.get("dadaStaffPhone")==null||"".equals(item.get("dadaStaffPhone"))?"暂无":item.get("dadaStaffPhone")+""));
-                            dadadeliverynoTv.setText(item.get("dadaWaybillCode")==null||"".equals(item.get("dadaWaybillCode"))?"暂无":item.get("dadaWaybillCode") + "");
+
+
+                            if ((item.get("dadaStaffName") != null && !"".equals(item.get("dadaStaffName"))) || ((item.get("dadaStaffPhone") != null && !"".equals(item.get("dadaStaffPhone"))))) {
+                                qishounamephoneTv.setText((item.get("dadaStaffName") != null && !"".equals(item.get("dadaStaffName")) ? item.get("dadaStaffName") + "":"暂无" ) + "/" + (item.get("dadaStaffPhone") != null && !"".equals(item.get("dadaStaffPhone")) ? item.get("dadaStaffPhone") + "":"暂无"  ));
+                            } else {
+                                qishounamephoneLin.setVisibility(View.GONE);
+                            }
+                            if (item.get("dadaWaybillCode") != null && !"".equals(item.get("dadaWaybillCode"))) {
+                                dadadeliverynoTv.setText(item.get("dadaWaybillCode") + "");
+                            } else {
+                                dadadeliverynoLin.setVisibility(View.GONE);
+                            }
+
+
                             tvLocationNum.setText(notNullString(item.get("dadaTakeawayAddress")));
                             llSong.setVisibility(View.VISIBLE);
                             tvSongMoney.setText("￥" + item.get("freight"));
@@ -400,8 +426,7 @@ public class OrderFragment2 extends BaseActivity {
                             } else {
                                 llPostFree.setVisibility(View.GONE);
                             }
-                        }
-                        else {
+                        } else {
                             llPeoplePhone.setVisibility(View.GONE);
                             llPeopleSeat.setVisibility(View.GONE);
                         }

@@ -104,20 +104,20 @@ public class SearchActivity2 extends BaseActivity {
         parmsMap.put("adminId", MySharedPreference.getAdminId());
         parmsMap.put("token", MySharedPreference.getToken());
         parmsMap.put("cinemaId", MySharedPreference.getCinemaId());
-        parmsMap.put("orderCode",title);
-        parmsMap.put("showDetail","1");
+        parmsMap.put("orderCode", title);
+        parmsMap.put("showDetail", "1");
         OkHttpManger.getInstance().getAsync(Constant.URL + "order/list", new OKHttpUICallback.ResultCallback<AppBack>() {
             @Override
             public void onSuccess(AppBack appBack) {
                 if (appBack.isSuccess()) {
                     list.clear();
                     List<Map<String, Object>> lists = appBack.getList();
-                    for(int i=0;i<lists.size();i++){
-                    list.add(lists.get(i));
-                    myAdapter.notifyDataSetChanged();}
-                }
-                    else
-                        toast("搜索订单不存在");
+                    for (int i = 0; i < lists.size(); i++) {
+                        list.add(lists.get(i));
+                        myAdapter.notifyDataSetChanged();
+                    }
+                } else
+                    toast("搜索订单不存在");
             }
         }, parmsMap);
     }
@@ -175,10 +175,10 @@ public class SearchActivity2 extends BaseActivity {
             TextView tvStatus = (TextView) holder.getView(R.id.tv_status);
             ImageView ivStatusBottom = (ImageView) holder.getView(R.id.iv_status_bottom);
             TextView tvStatusRight = (TextView) holder.getView(R.id.tv_status_right);
-            LinearLayout llDetails= (LinearLayout) holder.getView(R.id.ll_details);
+            LinearLayout llDetails = (LinearLayout) holder.getView(R.id.ll_details);
             LinearLayout llbG = (LinearLayout) holder.getView(R.id.ll_bg);
             LinearLayout llSeat = (LinearLayout) holder.getView(R.id.ll_seat);
-            TextView tvSeat= (TextView) holder.getView(R.id.tv_seat);
+            TextView tvSeat = (TextView) holder.getView(R.id.tv_seat);
             LinearLayout llSerive = (LinearLayout) holder.getView(R.id.ll_serive);
             TextView tvType = (TextView) holder.getView(R.id.tv_type);
             TextView tvThing = (TextView) holder.getView(R.id.tv_thing);
@@ -186,22 +186,21 @@ public class SearchActivity2 extends BaseActivity {
             TextView tvPhone = (TextView) holder.getView(R.id.tv_phone);
             TextView tvNote = (TextView) holder.getView(R.id.tv_note);
             TextView tv_vip = (TextView) holder.getView(R.id.tv_vip);
-            ImageView ivld= (ImageView) holder.getView(R.id.iv_lingdang);
+            ImageView ivld = (ImageView) holder.getView(R.id.iv_lingdang);
             LinearLayout llNote = (LinearLayout) holder.getView(R.id.ll_note);
             TextView tvNote2 = (TextView) holder.getView(R.id.tv_note2);
             final Map<String, Object> item = data.get(position);
-            if ((notNullString(item.get("isUrge")).equals("1") || notNullString(item.get("isUrge")).equals("2"))&&(Integer.parseInt(item.get("cookStatus").toString())!=-1&&Integer.parseInt(item.get("cookStatus").toString())!=-2)) {
+            if ((notNullString(item.get("isUrge")).equals("1") || notNullString(item.get("isUrge")).equals("2")) && (Integer.parseInt(item.get("cookStatus").toString()) != -1 && Integer.parseInt(item.get("cookStatus").toString()) != -2)) {
                 tvStatusRight.setText("催单");
                 ivStatusBottom.setVisibility(View.VISIBLE);
                 tvStatusRight.setVisibility(View.VISIBLE);
-            }else{
+            } else {
 
             }
-            if((item.get("cookStatus").equals(2)||item.get("status").equals(-1))&&Integer.parseInt(item.get("isUrge").toString())!=0){
+            if ((item.get("cookStatus").equals(2) || item.get("status").equals(-1)) && Integer.parseInt(item.get("isUrge").toString()) != 0) {
                 ivStatusBottom.setVisibility(View.GONE);
                 tvStatusRight.setVisibility(View.GONE);
-            }
-            else{
+            } else {
 
             }
             tvGetNum.setText(item.get("takeCode").toString());
@@ -222,10 +221,9 @@ public class SearchActivity2 extends BaseActivity {
                 tvLocation.setText(notNullString(item.get("seat")));
                 tvStatusDo.setTextColor(Color.parseColor("#ffa100"));
                 if (item.get("status").equals(1)) {
-                    if(item.get("isChangeSeat").equals(1)){
+                    if (item.get("isChangeSeat").equals(1)) {
                         tvSeatChange.setVisibility(View.VISIBLE);
-                    }
-                    else{
+                    } else {
                         tvSeatChange.setVisibility(View.GONE);
                     }
                     if (item.get("cookStatus").equals(-3)) {
@@ -280,7 +278,7 @@ public class SearchActivity2 extends BaseActivity {
                     ivStatusBottom.setVisibility(View.GONE);
                     tvStatusRight.setVisibility(View.GONE);
                 }
-            } else if(item.get("orderType").equals(1)){
+            } else if (item.get("orderType").equals(1)) {
                 tvType.setText("取餐号：");
                 tvAllMoney.setText(notNullString("实付: ￥" + item.get("totalPrice")));
                 llSerive.setVisibility(View.GONE);
@@ -331,8 +329,7 @@ public class SearchActivity2 extends BaseActivity {
                         tvStatus.setBackgroundResource(R.color.green2);
                         ivStatusBottom.setVisibility(View.GONE);
                         tvStatusRight.setVisibility(View.GONE);
-                    }
-                    else if (item.get("cookStatus").equals(3)) {
+                    } else if (item.get("cookStatus").equals(3)) {
                         ivStatus.setBackgroundResource(R.mipmap.btn4);
                         tvStatus.setText("已接单");
                         ivld.setVisibility(View.VISIBLE);
@@ -347,8 +344,7 @@ public class SearchActivity2 extends BaseActivity {
                     ivStatusBottom.setVisibility(View.GONE);
                     tvStatusRight.setVisibility(View.GONE);
                 }
-            }
-            else if (item.get("orderType").equals(4)) {  //外卖模式
+            } else if (item.get("orderType").equals(4)) {  //外卖模式
                 // "dada_status" int(11) DEFAULT '0' COMMENT '达达状态   未呼叫达达:0待接单＝1 待取货＝2 配送中＝3 已完成＝4 已取消＝5 已过期＝7 指派单=8 妥投异常之物品返回中=9 妥投异常之物品返回完成=10',
 //                 "dada_cancel_reason" varchar(255) DEFAULT NULL COMMENT '达达取消原因',
 //                "dada_cancel_from" int(11) DEFAULT '0' COMMENT '达达取消来源1:达达配送员取消；2:商家主动取消；3:系统或客服取消；0:默认值',
@@ -384,7 +380,14 @@ public class SearchActivity2 extends BaseActivity {
                         tvStatus.setBackgroundResource(R.color.gray3);
                         tvStatusRight.setVisibility(View.GONE);
                     }
-                    if (item.get("dadaStatus").equals(9)) {
+                    if (item.get("dadaStatus").equals(7)) { //已过期订单
+                        tvStatus.setText("异常");
+                        ivStatusBottom.setVisibility(View.GONE);
+                        tvStatus.setBackgroundResource(R.color.red);
+                        tvStatusRight.setVisibility(View.VISIBLE);
+                        ivStatus.setBackgroundResource(R.mipmap.callqishou);
+                        tvStatusRight.setText("! 呼叫超时");
+                    } else if (item.get("dadaStatus").equals(9)) {
                         tvStatus.setText("异常");
                         ivStatusBottom.setVisibility(View.GONE);
                         tvStatus.setBackgroundResource(R.color.red);
@@ -452,51 +455,49 @@ public class SearchActivity2 extends BaseActivity {
                     tvStatusRight.setVisibility(View.GONE);
                 }
 
-            }
-            else{
-            tvType.setText("服务号：");
-            llSerive.setVisibility(View.VISIBLE);
-            lvDetail.setVisibility(View.GONE);
-            rlZb.setVisibility(View.GONE);
-            llbG.setBackgroundResource(R.drawable.bg_top3);
-            tvStatusDo.setText("影院服务");
-            tvAllMoney.setVisibility(View.GONE);
-            llSeat.setVisibility(View.VISIBLE);
-            tvSeat.setVisibility(View.VISIBLE);
-            tvLocation.setText(notNullString(item.get("seat")));
-            ivld.setVisibility(View.GONE);
+            } else {
+                tvType.setText("服务号：");
+                llSerive.setVisibility(View.VISIBLE);
+                lvDetail.setVisibility(View.GONE);
+                rlZb.setVisibility(View.GONE);
+                llbG.setBackgroundResource(R.drawable.bg_top3);
+                tvStatusDo.setText("影院服务");
+                tvAllMoney.setVisibility(View.GONE);
+                llSeat.setVisibility(View.VISIBLE);
+                tvSeat.setVisibility(View.VISIBLE);
+                tvLocation.setText(notNullString(item.get("seat")));
+                ivld.setVisibility(View.GONE);
                 llNote.setVisibility(View.GONE);
-            tvStatusDo.setTextColor(Color.parseColor("#AE5CA4"));
-            tvPhone.setText(notNullString(item.get("phone")));
-            tvNote.setText(notNullString(item.get("remark")));
-            List<Map<String,Object>> lists= (List<Map<String, Object>>) item.get("attrList");
-            tvThing.setText(notNullString(lists.get(0).get("goodsName")));
-                if (lists.size()>1){
+                tvStatusDo.setTextColor(Color.parseColor("#AE5CA4"));
+                tvPhone.setText(notNullString(item.get("phone")));
+                tvNote.setText(notNullString(item.get("remark")));
+                List<Map<String, Object>> lists = (List<Map<String, Object>>) item.get("attrList");
+                tvThing.setText(notNullString(lists.get(0).get("goodsName")));
+                if (lists.size() > 1) {
                     tvThing1.setText(notNullString(lists.get(1).get("goodsName")));
                     tvThing1.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     tvThing1.setVisibility(View.GONE);
                 }
-            ivStatusBottom.setVisibility(View.GONE);
-            tvStatusRight.setVisibility(View.GONE);
-            if (item.get("status").equals(1)) {
-                if (item.get("cookStatus").equals(1)) {
-                    ivStatus.setBackgroundResource(R.mipmap.btn3);
-                    tvStatus.setText("未接单");
-                    tvStatus.setBackgroundResource(R.color.gray3);
-                    ivStatusBottom.setVisibility(View.GONE);
-                    tvStatusRight.setVisibility(View.GONE);
-                } else if (item.get("cookStatus").equals(2)) {
-                    ivStatus.setBackgroundResource(R.mipmap.btn4);
-                    tvStatus.setText("已接单");
-                    tvStatus.setBackgroundResource(R.color.green2);
-                    ivStatusBottom.setVisibility(View.GONE);
-                    tvStatusRight.setVisibility(View.GONE);
+                ivStatusBottom.setVisibility(View.GONE);
+                tvStatusRight.setVisibility(View.GONE);
+                if (item.get("status").equals(1)) {
+                    if (item.get("cookStatus").equals(1)) {
+                        ivStatus.setBackgroundResource(R.mipmap.btn3);
+                        tvStatus.setText("未接单");
+                        tvStatus.setBackgroundResource(R.color.gray3);
+                        ivStatusBottom.setVisibility(View.GONE);
+                        tvStatusRight.setVisibility(View.GONE);
+                    } else if (item.get("cookStatus").equals(2)) {
+                        ivStatus.setBackgroundResource(R.mipmap.btn4);
+                        tvStatus.setText("已接单");
+                        tvStatus.setBackgroundResource(R.color.green2);
+                        ivStatusBottom.setVisibility(View.GONE);
+                        tvStatusRight.setVisibility(View.GONE);
+                    }
+                } else {
                 }
             }
-            else{
-            }
-        }
 //            if ((item.get("isUrge").equals(1) || item.get("isUrge").equals(2))&&(Integer.parseInt(item.get("cookStatus").toString())!=-1&&Integer.parseInt(item.get("cookStatus").toString())!=-2)) {
 //                tvStatusRight.setText("催单");
 //                ivStatusBottom.setVisibility(View.VISIBLE);
@@ -510,9 +511,9 @@ public class SearchActivity2 extends BaseActivity {
 //            tvGetNum.setText(notNullString(item.get("takeCode")));
 //            tvAllMoney.setText("实付:￥" + item.get("totalPrice").toString());
             items = (List<Map<String, Object>>) item.get("attrList");
-            giftsItem=(List<Map<String, Object>>) item.get("giftList");
+            giftsItem = (List<Map<String, Object>>) item.get("giftList");
 
-            MyAdapterSon myAdapters = new MyAdapterSon(context, items,item);
+            MyAdapterSon myAdapters = new MyAdapterSon(context, items, item);
             LinearLayoutManager LayoutManager = new LinearLayoutManager(context);
             lvDetail.setLayoutManager(LayoutManager);
             lvDetail.setAdapter(myAdapters);
@@ -520,17 +521,17 @@ public class SearchActivity2 extends BaseActivity {
             lvDetail.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
-                    if(motionEvent.getAction()==MotionEvent.ACTION_UP){
-                        startActivity(new Intent(context,OrderFragment.class)
-                                .putExtra("tag",item.get("id").toString())
-                                .putExtra("map",item.toString())
+                    if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                        startActivity(new Intent(context, OrderFragment.class)
+                                .putExtra("tag", item.get("id").toString())
+                                .putExtra("map", item.toString())
                         );
                     }
                     return false;
                 }
             });
 
-            MyAdapterGoods goodmyAdapter = new MyAdapterGoods(context, giftsItem,item);
+            MyAdapterGoods goodmyAdapter = new MyAdapterGoods(context, giftsItem, item);
             LinearLayoutManager LayoutManager2 = new LinearLayoutManager(context);
             rlZb.setLayoutManager(LayoutManager2);
             rlZb.setAdapter(goodmyAdapter);
@@ -538,10 +539,10 @@ public class SearchActivity2 extends BaseActivity {
             rlZb.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
-                    if(motionEvent.getAction()==MotionEvent.ACTION_UP){
-                        startActivity(new Intent(context,OrderFragment.class)
-                                .putExtra("tag",item.get("id").toString())
-                                .putExtra("map",item.toString())
+                    if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                        startActivity(new Intent(context, OrderFragment.class)
+                                .putExtra("tag", item.get("id").toString())
+                                .putExtra("map", item.toString())
                         );
                     }
                     return false;
@@ -552,61 +553,59 @@ public class SearchActivity2 extends BaseActivity {
                 @Override
                 public void onClick(View view) {
                     if (item.get("status").equals(1)) {
-                        if(item.get("orderType").equals(2)){
+                        if (item.get("orderType").equals(2)) {
                             if (item.get("cookStatus").equals(1)) {
-                                cookDone(item.get("id").toString(),holder.getAdapterPosition());
+                                cookDone(item.get("id").toString(), holder.getAdapterPosition());
                             } else if (item.get("cookStatus").equals(3)) {
                                 confirm(item.get("id").toString(), holder.getAdapterPosition());
-                            }else if (item.get("cookStatus").equals(0)) {
+                            } else if (item.get("cookStatus").equals(0)) {
                                 catchOrder(item.get("id").toString(), holder.getAdapterPosition());
                             }
-                        }
-                        else if(item.get("orderType").equals(1)){
+                        } else if (item.get("orderType").equals(1)) {
                             if (item.get("cookStatus").equals(1)) {
                                 confirm(item.get("id").toString(), holder.getAdapterPosition());
                             } else if (item.get("cookStatus").equals(3)) {
                                 confirm(item.get("id").toString(), holder.getAdapterPosition());
-                            }else if (item.get("cookStatus").equals(0)) {
+                            } else if (item.get("cookStatus").equals(0)) {
                                 catchOrder(item.get("id").toString(), holder.getAdapterPosition());
                             }
-                        }
-                        else if (item.get("orderType").equals(4)) {   //外卖 点击
-                            if (item.get("dadaStatus").equals(-1)){
+                        } else if (item.get("orderType").equals(4)) {   //外卖 点击
+                            if (item.get("dadaStatus").equals(-1)) {
                                 catchOrder(item.get("id").toString(), holder.getAdapterPosition());
                             }
-                            if (item.get("dadaStatus").equals(9)){  //返回餐品  到时候会走明伟接口
+                            if (item.get("dadaStatus").equals(9)) {  //返回餐品  到时候会走明伟接口
                                 returnMeal(item.get("orderCode").toString(), holder.getAdapterPosition());
 
                             }
-                            if (item.get("dadaStatus").equals(0)||item.get("dadaStatus").equals(10)||item.get("dadaStatus").equals(5)) { //已接单（有呼叫骑手 ）
+                            if (item.get("dadaStatus").equals(0) || item.get("dadaStatus").equals(10) || item.get("dadaStatus").equals(5)||item.get("dadaStatus").equals(7)) { //已接单（有呼叫骑手 ）
                                 callqishou(item.get("id").toString(), holder.getAdapterPosition());
                             }
-                            if (item.get("dadaStatus").equals(4)){
+                            if (item.get("dadaStatus").equals(4)) {
                                 myAdapter.notifyDataSetChanged();
                                 page = 1;
                                 loadData(etSearch.getText().toString());
                             }
-                        }
-                        else{
+                        } else {
                             if (item.get("cookStatus").equals(2)) {
-                                Update(item.get("id").toString(), holder.getAdapterPosition(),"3");
-                            }else if (item.get("cookStatus").equals(1)) {
-                                Update(item.get("id").toString(), holder.getAdapterPosition(),"2");
+                                Update(item.get("id").toString(), holder.getAdapterPosition(), "3");
+                            } else if (item.get("cookStatus").equals(1)) {
+                                Update(item.get("id").toString(), holder.getAdapterPosition(), "2");
                             }
                         }
-                    }else{
+                    } else {
                     }
                 }
             });
             llDetails.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(context,OrderFragment.class)
-                            .putExtra("tag",item.get("id").toString())
-                            .putExtra("map",item.toString()));//订单整个model
+                    startActivity(new Intent(context, OrderFragment.class)
+                            .putExtra("tag", item.get("id").toString())
+                            .putExtra("map", item.toString()));//订单整个model
                 }
             });
         }
+
         //呼叫骑手
         private void callqishou(String orderCard, final int position) {
         /*{"action":null,"eMsg":"success","msg":"成功","result":null,"status":0}*/
@@ -618,9 +617,9 @@ public class SearchActivity2 extends BaseActivity {
                 @Override
                 public void onSuccess(AppBack appBack) {
                     if (appBack.isSuccess()) {
-//                  listItem.get(position).put("cookStatus", 2);
-                        if (items.get(position).get("orderType").equals(4)){
-                            items.get(position).put("dadaStatus","1");
+     //             listItem.get(position).put("cookStatus", 2);
+                        if (list.get(position).get("orderType").equals(4)) {
+                            list.get(position).put("dadaStatus", "1");
                         }
                         myAdapter.notifyDataSetChanged();
                         page = 1;
@@ -640,13 +639,14 @@ public class SearchActivity2 extends BaseActivity {
                 @Override
                 public void onSuccess(AppBack appBack) {
                     if (appBack.isSuccess()) {
-                        items.get(position).put("cookStatus", 2);
+                        list.get(position).put("cookStatus", 2);
                         myAdapter.notifyDataSetChanged();
                         loadData(etSearch.getText().toString());
                     }
                 }
             }, parmsMap);
         }
+
         //接单
         private void catchOrder(String orderCard, final int position) {
             Map<String, String> parmsMap = new HashMap<>();
@@ -657,17 +657,18 @@ public class SearchActivity2 extends BaseActivity {
                 @Override
                 public void onSuccess(AppBack appBack) {
                     if (appBack.isSuccess()) {
-                        items.get(position).put("cookStatus", 1);
-                        if (items.get(position).get("orderType").equals(4)){
-                            items.get(position).put("dadaStatus","0");
+                        list.get(position).put("cookStatus", 1);
+                        if (list.get(position).get("orderType").equals(4)) {
+                            list.get(position).put("dadaStatus", "0");
                         }
-                        PrintOrderUtils.print(items.get(position));//打印某一订单
+                        PrintOrderUtils.print(list.get(position));//打印某一订单
                         myAdapter.notifyDataSetChanged();
                         loadData(etSearch.getText().toString());
                     }
                 }
             }, parmsMap);
         }
+
         //配餐完成
         private void cookDone(String orderCard, final int position) {
             Map<String, String> parmsMap = new HashMap<>();
@@ -678,7 +679,7 @@ public class SearchActivity2 extends BaseActivity {
                 @Override
                 public void onSuccess(AppBack appBack) {
                     if (appBack.isSuccess()) {
-                        items.get(position).put("cookStatus", 3);
+                        list.get(position).put("cookStatus", 3);
                         myAdapter.notifyDataSetChanged();
                         loadData(etSearch.getText().toString());
                     }
@@ -697,8 +698,8 @@ public class SearchActivity2 extends BaseActivity {
                 @Override
                 public void onSuccess(AppBack appBack) {
                     if (appBack.isSuccess()) {
-                        if (items.get(position).get("orderType").equals(4)){
-                            items.get(position).put("dadaStatus","10");
+                        if (list.get(position).get("orderType").equals(4)) {
+                            list.get(position).put("dadaStatus", "10");
                         }
                         myAdapter.notifyDataSetChanged();
                         page = 1;
@@ -721,12 +722,11 @@ public class SearchActivity2 extends BaseActivity {
                 @Override
                 public void onSuccess(AppBack appBack) {
                     if (appBack.isSuccess()) {
-                        if (orderType=="2"){
-                            items.get(position).put("cookStatus", 2);
+                        if (orderType == "2") {
+                            list.get(position).put("cookStatus", 2);
                             PrintOrderUtils.print(items.get(position));//打印某一订单
-                             }
-                        else{
-                            items.get(position).put("cookStatus", 3);
+                        } else {
+                            list.get(position).put("cookStatus", 3);
                         }
                         myAdapter.notifyDataSetChanged();
                         loadData(etSearch.getText().toString());
@@ -734,6 +734,7 @@ public class SearchActivity2 extends BaseActivity {
                 }
             }, parmsMap);
         }
+
         @Override
         public int getItemCount() {
             return data.size();
@@ -744,6 +745,7 @@ public class SearchActivity2 extends BaseActivity {
             super.onAttachedToRecyclerView(recyclerView);
             mRecyclerView = recyclerView;
         }
+
         RecyclerView mRecyclerView;
 
         @Override
@@ -752,16 +754,17 @@ public class SearchActivity2 extends BaseActivity {
         }
     }
 
-    public class MyTextWatcher implements TextWatcher{
+    public class MyTextWatcher implements TextWatcher {
         private CharSequence temp;
+
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            temp=charSequence;
+            temp = charSequence;
         }
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            if(temp.length()>=4&&temp.length()<10) {
+            if (temp.length() >= 4 && temp.length() < 10) {
 //                add2History(etSearch.getText().toString());
                 loadData(etSearch.getText().toString());
                 etSearch.clearFocus();
@@ -770,21 +773,22 @@ public class SearchActivity2 extends BaseActivity {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            if (temp.length()>=10){
+            if (temp.length() >= 10) {
                 toast("您输入的字数过长");
             }
         }
     }
+
     public class MyAdapterSon extends RecyclerView.Adapter<MyViewHolder> implements View.OnClickListener {
         private List<Map<String, Object>> data;
         private LayoutInflater inflater;
         private Context context;
-        private Map<String,Object> item;
+        private Map<String, Object> item;
 
-        public MyAdapterSon(Context context, List<Map<String, Object>> data,Map<String,Object> item) {
+        public MyAdapterSon(Context context, List<Map<String, Object>> data, Map<String, Object> item) {
             this.context = context;
             this.data = data;
-            this.item=item;
+            this.item = item;
             inflater = LayoutInflater.from(context);
         }
 
@@ -795,10 +799,10 @@ public class SearchActivity2 extends BaseActivity {
             itemView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
-                    if(motionEvent.getAction()==MotionEvent.ACTION_UP){
-                        startActivity(new Intent(context,OrderFragment.class)
-                                .putExtra("tag",item.get("id").toString())
-                                .putExtra("map",item.toString())
+                    if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                        startActivity(new Intent(context, OrderFragment.class)
+                                .putExtra("tag", item.get("id").toString())
+                                .putExtra("map", item.toString())
                         );
                     }
                     return false;
@@ -807,17 +811,18 @@ public class SearchActivity2 extends BaseActivity {
             final MyViewHolder holder = new MyViewHolder(itemView);
             return holder;
         }
+
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-            TextView tvGoodsName= (TextView) holder.getView(R.id.tv_goods_name);
-            TextView tvGoodsNum= (TextView) holder.getView(R.id.tv_goods_num);
-            TextView tvGoodsBig= (TextView) holder.getView(R.id.tv_goods_big);
-            TextView tvGoodsWei= (TextView) holder.getView(R.id.tv_goods_wei);
-            LinearLayout llGoods= (LinearLayout) holder.getView(R.id.ll_goods);
+            TextView tvGoodsName = (TextView) holder.getView(R.id.tv_goods_name);
+            TextView tvGoodsNum = (TextView) holder.getView(R.id.tv_goods_num);
+            TextView tvGoodsBig = (TextView) holder.getView(R.id.tv_goods_big);
+            TextView tvGoodsWei = (TextView) holder.getView(R.id.tv_goods_wei);
+            LinearLayout llGoods = (LinearLayout) holder.getView(R.id.ll_goods);
             llGoods.setVisibility(View.VISIBLE);
             Map<String, Object> items = data.get(position);
             tvGoodsName.setText(notNullString(items.get("goodsName")));
-            tvGoodsNum.setText(notNullString("x"+items.get("count")));
+            tvGoodsNum.setText(notNullString("x" + items.get("count")));
             tvGoodsBig.setText(notNullString(items.get("attrName")));
             tvGoodsWei.setText(notNullString(items.get("attr2")));
         }
@@ -832,17 +837,18 @@ public class SearchActivity2 extends BaseActivity {
 
         }
     }
+
     public class MyAdapterGoods extends RecyclerView.Adapter<MyViewHolder> implements View.OnClickListener {
         private List<Map<String, Object>> data;
         private LayoutInflater inflater;
         private Context context;
-        private Map<String,Object> item;
+        private Map<String, Object> item;
 
 
-        public MyAdapterGoods (Context context, List<Map<String, Object>> data,Map<String,Object> item) {
+        public MyAdapterGoods(Context context, List<Map<String, Object>> data, Map<String, Object> item) {
             this.context = context;
             this.data = data;
-            this.item=item;
+            this.item = item;
             inflater = LayoutInflater.from(context);
         }
 
@@ -853,10 +859,10 @@ public class SearchActivity2 extends BaseActivity {
             itemView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
-                    if(motionEvent.getAction()==MotionEvent.ACTION_UP){
-                        startActivity(new Intent(context,OrderFragment.class)
-                                .putExtra("tag",item.get("id").toString())
-                                .putExtra("map",item.toString())
+                    if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                        startActivity(new Intent(context, OrderFragment.class)
+                                .putExtra("tag", item.get("id").toString())
+                                .putExtra("map", item.toString())
                         );
                     }
                     return false;
@@ -870,7 +876,7 @@ public class SearchActivity2 extends BaseActivity {
         public void onBindViewHolder(MyViewHolder holder, int position) {
             TextView tvGoodsName = (TextView) holder.getView(R.id.tv_goods_name);
             TextView tvGoodsNum = (TextView) holder.getView(R.id.tv_goods_num);
-            LinearLayout llGoods= (LinearLayout) holder.getView(R.id.ll_goods);
+            LinearLayout llGoods = (LinearLayout) holder.getView(R.id.ll_goods);
             llGoods.setVisibility(View.GONE);
             Map<String, Object> item = data.get(position);
             tvGoodsName.setText(item.get("giftName").toString());
@@ -887,6 +893,7 @@ public class SearchActivity2 extends BaseActivity {
 
         }
     }
+
     /*今日搜索数量*/
     public void loadData2() {
         if (!TextUtils.isEmpty(MySharedPreference.get("TodaySearchSize"))) {

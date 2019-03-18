@@ -567,7 +567,16 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
                         tvStatus.setBackgroundResource(R.color.gray3);
                         tvStatusRight.setVisibility(View.GONE);
                     }
-                    if (item.get("dadaStatus").equals(9)) {
+
+                    if (item.get("dadaStatus").equals(7)) { //已过期订单
+                        tvStatus.setText("异常");
+                        ivStatusBottom.setVisibility(View.GONE);
+                        tvStatus.setBackgroundResource(R.color.red);
+                        tvStatusRight.setVisibility(View.VISIBLE);
+                        ivStatus.setBackgroundResource(R.mipmap.callqishou);
+                        tvStatusRight.setText("! 呼叫超时");
+                    }
+                    else if (item.get("dadaStatus").equals(9)) {
                         tvStatus.setText("异常");
                         ivStatusBottom.setVisibility(View.GONE);
                         tvStatus.setBackgroundResource(R.color.red);
@@ -753,7 +762,7 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
                                 returnMeal(item.get("orderCode").toString(), holder.getAdapterPosition());
 
                             }
-                            if (item.get("dadaStatus").equals(0)||item.get("dadaStatus").equals(10)||item.get("dadaStatus").equals(5)) { //已接单（有呼叫骑手 ）
+                            if (item.get("dadaStatus").equals(0)||item.get("dadaStatus").equals(10)||item.get("dadaStatus").equals(5)||item.get("dadaStatus").equals(7)) { //已接单（有呼叫骑手 ）
                                 callqishou(item.get("id").toString(), holder.getAdapterPosition());
                             }
                             if (item.get("dadaStatus").equals(4)){

@@ -609,7 +609,16 @@ public class SumFragment extends BaseFragement {
                         tvStatus.setBackgroundResource(R.color.gray3);
                         tvStatusRight.setVisibility(View.GONE);
                     }
-                    if (item.get("dadaStatus").equals(9)) {
+
+                    if (item.get("dadaStatus").equals(7)) { //已过期订单
+                        tvStatus.setText("异常");
+                        ivStatusBottom.setVisibility(View.GONE);
+                        tvStatus.setBackgroundResource(R.color.red);
+                        tvStatusRight.setVisibility(View.VISIBLE);
+                        ivStatus.setBackgroundResource(R.mipmap.callqishou);
+                        tvStatusRight.setText("! 呼叫超时");
+                    }
+                    else if (item.get("dadaStatus").equals(9)) {
                         tvStatus.setText("异常");
                         ivStatusBottom.setVisibility(View.GONE);
                         tvStatus.setBackgroundResource(R.color.red);
@@ -661,11 +670,9 @@ public class SumFragment extends BaseFragement {
                         tvStatusRight.setVisibility(View.VISIBLE);
                         if (item.get("dadaCancelFrom").equals(1)) {// 1:达达配送员取消；
                             ivStatusBottom.setVisibility(View.GONE);
-                            ivStatus.setBackgroundResource(R.mipmap.callqishou);
                             tvStatusRight.setText("! 骑手取消订单");
                         } else if (item.get("dadaCancelFrom").equals(3)) {
                             ivStatusBottom.setVisibility(View.GONE);
-                            ivStatus.setBackgroundResource(R.mipmap.callqishou);
                             tvStatusRight.setText("! 客服取消订单");
                         }
                     }

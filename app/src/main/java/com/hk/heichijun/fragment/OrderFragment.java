@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ import com.hk.heichijun.utils.PopStyleIphoneSeatError;
 import com.hk.heichijun.utils.PopStyleIphonejiedan;
 import com.hk.heichijun.utils.PopStyleIphonequehuo;
 import com.hk.heichijun.utils.PopStyleIphonetuikuan;
+import com.hk.heichijun.utils.StringUtils;
 import com.hk.heichijun.utils.print.PrintOrderUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -307,13 +309,24 @@ public class OrderFragment extends BaseActivity {
                                 tvStatus.setBackgroundResource(R.color.green2);
                                 tvReturnMoney.setVisibility(View.VISIBLE);
                             }
-                        }
-                        else if (item.get("orderType").equals(4)) { //外卖
+                        } else if (item.get("orderType").equals(4)) { //外卖
                             orderdetialAddressTv.setText("收货地址");
                             dadadeliverynoLin.setVisibility(View.VISIBLE);
                             qishounamephoneLin.setVisibility(View.VISIBLE);
-                            qishounamephoneTv.setText(item.get("dadaStaffName")==null?"暂无":item.get("dadaStaffName") + "/" + item.get("dadaStaffPhone")==null?"暂无":item.get("dadaStaffPhone")+"");
-                            dadadeliverynoTv.setText(item.get("dadaWaybillCode")==null?"暂无":item.get("dadaWaybillCode") + "");
+
+
+                            if ((item.get("dadaStaffName") != null && !"".equals(item.get("dadaStaffName"))) || ((item.get("dadaStaffPhone") != null && !"".equals(item.get("dadaStaffPhone"))))) {
+                                qishounamephoneTv.setText((item.get("dadaStaffName") != null && !"".equals(item.get("dadaStaffName")) ? item.get("dadaStaffName") + "":"暂无" ) + "/" + (item.get("dadaStaffPhone") != null && !"".equals(item.get("dadaStaffPhone")) ? item.get("dadaStaffPhone") + "":"暂无"  ));
+                            } else {
+                                qishounamephoneLin.setVisibility(View.GONE);
+                            }
+                            if (item.get("dadaWaybillCode") != null && !"".equals(item.get("dadaWaybillCode"))) {
+                                dadadeliverynoTv.setText(item.get("dadaWaybillCode") + "");
+                            } else {
+                                dadadeliverynoLin.setVisibility(View.GONE);
+                            }
+
+
                             tvLocationNum.setText(notNullString(item.get("dadaTakeawayAddress")));
                             llSong.setVisibility(View.VISIBLE);
                             tvSongMoney.setText("￥" + item.get("freight"));
@@ -339,6 +352,15 @@ public class OrderFragment extends BaseActivity {
                                 tvError.setVisibility(View.GONE);
                                 tvFinish.setText("接单");
                                 tvStatus.setBackgroundResource(R.color.gray3);
+                            } else if (item.get("dadaStatus").equals(7)) { //已过期订单
+
+                                tvStatus.setText("异常");
+                                tvStatus.setBackgroundResource(R.color.red);
+                                tvFinish.setVisibility(View.VISIBLE);
+                                tvFinish.setText("呼叫骑手");
+                                tvError.setVisibility(View.VISIBLE);
+                                tvError.setText("! 呼叫超时");
+
                             } else if (item.get("dadaStatus").equals(9)) {
                                 tvStatus.setText("异常");
                                 tvStatus.setBackgroundResource(R.color.red);
@@ -351,7 +373,7 @@ public class OrderFragment extends BaseActivity {
                                 tvStatus.setText("异常");
                                 tvStatus.setBackgroundResource(R.color.red);
                                 tvFinish.setVisibility(View.VISIBLE);
-                                tvFinish.setText("返还餐品");
+                                tvFinish.setText("呼叫骑手");
                                 tvError.setVisibility(View.VISIBLE);
                                 tvError.setText("! 妥投异常");
                             } else if (item.get("dadaStatus").equals(0)) {
@@ -396,8 +418,7 @@ public class OrderFragment extends BaseActivity {
                                     tvError.setText("! 客服取消订单");
                                 }
                             }
-                        }
-                        else {
+                        } else {
                             llPostFree.setVisibility(View.GONE);
                             llSong.setVisibility(View.GONE);
                             llPeoplePhone.setVisibility(View.GONE);
@@ -457,8 +478,17 @@ public class OrderFragment extends BaseActivity {
                             orderdetialAddressTv.setText("收货地址");
                             dadadeliverynoLin.setVisibility(View.VISIBLE);
                             qishounamephoneLin.setVisibility(View.VISIBLE);
-                            qishounamephoneTv.setText((item.get("dadaStaffName")==null||"".equals(item.get("dadaStaffName"))?"暂无":item.get("dadaStaffName") +"")+ "/" + (item.get("dadaStaffPhone")==null||"".equals(item.get("dadaStaffPhone"))?"暂无":item.get("dadaStaffPhone")+""));
-                            dadadeliverynoTv.setText(item.get("dadaWaybillCode")==null||"".equals(item.get("dadaWaybillCode"))?"暂无":item.get("dadaWaybillCode") + "");
+                            if ((item.get("dadaStaffName") != null && !"".equals(item.get("dadaStaffName"))) || ((item.get("dadaStaffPhone") != null && !"".equals(item.get("dadaStaffPhone"))))) {
+                                qishounamephoneTv.setText((item.get("dadaStaffName") != null && !"".equals(item.get("dadaStaffName")) ? item.get("dadaStaffName") + "":"暂无" ) + "/" + (item.get("dadaStaffPhone") != null && !"".equals(item.get("dadaStaffPhone")) ? item.get("dadaStaffPhone") + "":"暂无"  ));
+                            } else {
+                                qishounamephoneLin.setVisibility(View.GONE);
+                            }
+                            if (item.get("dadaWaybillCode") != null && !"".equals(item.get("dadaWaybillCode"))) {
+                                dadadeliverynoTv.setText(item.get("dadaWaybillCode") + "");
+                            } else {
+                                dadadeliverynoLin.setVisibility(View.GONE);
+                            }
+
                             tvLocationNum.setText(notNullString(item.get("dadaTakeawayAddress")));
                             llSong.setVisibility(View.VISIBLE);
                             tvSongMoney.setText("￥" + item.get("freight"));
@@ -541,9 +571,18 @@ public class OrderFragment extends BaseActivity {
                                     popStyleIphonejiedan.show(OrderFragment.this);
                                 }
                                 if (item.get("dadaStatus").equals(9)) {  //返回餐品  到时候会走明伟接口
-                                    returnMeal(item.get("orderCode").toString());
+                                    exitPw = new PopStyleIphone(OrderFragment.this);
+                                    exitPw.tv_text.setText("是否返还餐品");
+                                    exitPw.btn_sure.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            returnMeal(item.get("orderCode").toString());
+                                            exitPw.dismiss();
+                                        }
+                                    });
+                                    exitPw.show(OrderFragment.this);
                                 }
-                                if (item.get("dadaStatus").equals(0) || item.get("dadaStatus").equals(10) || item.get("dadaStatus").equals(5)) { //已接单（有呼叫骑手 ）
+                                if (item.get("dadaStatus").equals(0) || item.get("dadaStatus").equals(10) || item.get("dadaStatus").equals(5)||item.get("dadaStatus").equals(7)) { //已接单（有呼叫骑手 ）
                                     exitPw = new PopStyleIphone(OrderFragment.this);
                                     exitPw.tv_text.setText("是否呼叫骑手");
                                     exitPw.btn_sure.setOnClickListener(new View.OnClickListener() {

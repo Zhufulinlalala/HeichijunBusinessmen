@@ -619,6 +619,9 @@ public class SearchActivity2 extends BaseActivity {
                 public void onSuccess(AppBack appBack) {
                     if (appBack.isSuccess()) {
 //                  listItem.get(position).put("cookStatus", 2);
+                        if (items.get(position).get("orderType").equals(4)){
+                            items.get(position).put("dadaStatus","1");
+                        }
                         myAdapter.notifyDataSetChanged();
                         page = 1;
                         loadData(etSearch.getText().toString());
@@ -655,7 +658,7 @@ public class SearchActivity2 extends BaseActivity {
                 public void onSuccess(AppBack appBack) {
                     if (appBack.isSuccess()) {
                         items.get(position).put("cookStatus", 1);
-                        if (items.get(position).get("orderType").equals(3)){
+                        if (items.get(position).get("orderType").equals(4)){
                             items.get(position).put("dadaStatus","0");
                         }
                         PrintOrderUtils.print(items.get(position));//打印某一订单
@@ -694,7 +697,9 @@ public class SearchActivity2 extends BaseActivity {
                 @Override
                 public void onSuccess(AppBack appBack) {
                     if (appBack.isSuccess()) {
-//                  listItem.get(position).put("cookStatus", 2);
+                        if (items.get(position).get("orderType").equals(4)){
+                            items.get(position).put("dadaStatus","10");
+                        }
                         myAdapter.notifyDataSetChanged();
                         page = 1;
                         loadData(etSearch.getText().toString());

@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -198,6 +199,7 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
                     if (page == 1) {
                         listItem.clear();
                     }
+                   // Log.d("NewTaskFragment", "listItem.get(0).get('dadaStutus'):" + list.get(0).get("dadaStatus"));
 //                    "dada_status" int(11) DEFAULT '0' COMMENT '达达状态 未呼叫达达:0待接单＝1 待取货＝2 配送中＝3 已完成＝4 已取消＝5 已过期＝7 指派单=8 妥投异常之物品返回中=9 妥投异常之物品返回完成=10',
 //                     "dada_cancel_reason" varchar(255) DEFAULT NULL COMMENT '达达取消原因',
 //                      "dada_cancel_from" int(11) DEFAULT '0' COMMENT '达达取消来源1:达达配送员取消；2:商家主动取消；3:系统或客服取消；0:默认值',
@@ -617,11 +619,9 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
                         tvStatusRight.setVisibility(View.VISIBLE);
                         if (item.get("dadaCancelFrom").equals(1)) {// 1:达达配送员取消；
                             ivStatusBottom.setVisibility(View.GONE);
-                            ivStatus.setBackgroundResource(R.mipmap.callqishou);
                             tvStatusRight.setText("! 骑手取消订单");
                         } else if (item.get("dadaCancelFrom").equals(3)) {
                             ivStatusBottom.setVisibility(View.GONE);
-                            ivStatus.setBackgroundResource(R.mipmap.callqishou);
                             tvStatusRight.setText("! 客服取消订单");
                         }
                     }
@@ -847,7 +847,9 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
             @Override
             public void onSuccess(AppBack appBack) {
                 if (appBack.isSuccess()) {
-//                  listItem.get(position).put("cookStatus", 2);
+                    if (listItem.get(position).get("orderType").equals(4)){
+                        listItem.get(position).put("dadaStatus","1");
+                    }
                     myAdpter.notifyDataSetChanged();
                     page = 1;
                     loadData();
@@ -867,7 +869,9 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
             @Override
             public void onSuccess(AppBack appBack) {
                 if (appBack.isSuccess()) {
-//                  listItem.get(position).put("cookStatus", 2);
+                    if (listItem.get(position).get("orderType").equals(4)){
+                        listItem.get(position).put("dadaStatus","10");
+                    }
                     myAdpter.notifyDataSetChanged();
                     page = 1;
                     loadData();
@@ -890,7 +894,7 @@ public class NewTaskFragment extends BaseFragement implements SwipeBackLayout.Sw
                     Loge(listItem.get(position));
                     PrintOrderUtils.print(listItem.get(position));//打印某一订单
                     listItem.get(position).put("cookStatus", 1);
-                    if (listItem.get(position).get("orderType").equals(3)){
+                    if (listItem.get(position).get("orderType").equals(4)){
                         listItem.get(position).put("dadaStatus","0");
                     }
                     myAdpter.notifyDataSetChanged();

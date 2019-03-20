@@ -742,6 +742,7 @@
             android:layout_height="wrap_content"
             android:text="订单完成24小时后，将无法退款"
             android:textColor="@color/red"
+            android:id="@+id/tk_content"
             android:textSize="@dimen/m12"/>
     </LinearLayout>
     <LinearLayout

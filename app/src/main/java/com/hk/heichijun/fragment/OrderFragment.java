@@ -110,6 +110,9 @@ public class OrderFragment extends BaseActivity {
     LinearLayout dadadeliverynoLin;
     @BindView(R.id.dadadeliveryno_tv)
     TextView dadadeliverynoTv;
+    @BindView(R.id.tk_content)
+    TextView tkContent;
+
 
     @BindView(R.id.qishounamephone_lin)
     LinearLayout qishounamephoneLin;
@@ -392,6 +395,8 @@ public class OrderFragment extends BaseActivity {
                                 tvStatus.setText("骑手已接单");
                                 tvError.setVisibility(View.GONE);
                                 tvFinish.setVisibility(View.GONE);
+                                llTs.setVisibility(View.VISIBLE);
+                                tkContent.setText("退款将被达达扣除2元违约金!");
                                 tvStatus.setBackgroundResource(R.color.green2);
                             } else if (item.get("dadaStatus").equals(3)) {
                                 tvStatus.setText("骑手已取货");

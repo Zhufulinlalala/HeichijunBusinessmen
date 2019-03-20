@@ -111,7 +111,8 @@ public class OrderFragment2 extends BaseActivity {
     LinearLayout qishounamephoneLin;
     @BindView(R.id.qishounamephone_tv)
     TextView qishounamephoneTv;
-
+    @BindView(R.id.tk_content)
+    TextView tkContent;
     @BindView(R.id.tv_goods_miss)
     TextView tvGoodsMiss;
     private List<Map<String, Object>> listItem = new ArrayList<>();
@@ -327,6 +328,8 @@ public class OrderFragment2 extends BaseActivity {
                             } else if (item.get("dadaStatus").equals(2)) {
                                 tvStatus.setText("骑手已接单");
                                 tvError.setVisibility(View.GONE);
+                                llTs.setVisibility(View.VISIBLE);
+                                tkContent.setText("退款将被达达扣除2元违约金!");
                                 tvFinish.setVisibility(View.GONE);
                                 tvStatus.setBackgroundResource(R.color.green2);
                             } else if (item.get("dadaStatus").equals(3)) {
